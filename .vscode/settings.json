@@ -1,0 +1,34 @@
+{
+    // "python.pythonPath": ".tokenSample/bin/python",
+    "python.pythonPath": "/home/nykim/python-projects/DrmTokenSamplePython/.tokenSample/bin/python",
+    "python.venvPath": "/home/nykim/python-projects/DrmTokenSamplePython/.tokenSample",
+    "python.envFile": "${workspaceFolder}/.env",
+    "python.linting.enabled": true,
+    // "python.formatting.provider": "black",
+    "files.exclude": {
+        "**/__pycache__/**": true,
+        "**/**/*.pyc": true
+    },
+    "editor.formatOnSave": true,
+    "python.linting.pylintArgs": [
+        "--errors-only",
+        "--init-hook"
+        // ,
+        // "import sys; sys.path.append('/home/nykim/python-projects/DrmTokenSamplePython/pallycon/sample/exception')"
+    ],
+    "python.autoComplete.extraPaths": [
+        "./pallycon"
+    ],
+    "python.linting.pylintEnabled": false,
+    "python.testing.unittestEnabled": true,
+    "python.testing.pytestEnabled": false,
+    "python.testing.nosetestsEnabled": false,
+    "python.testing.unittestArgs": [
+        "-v",
+        "-s",
+        "./pallycon/test",
+        "-p",
+        "test_*.py"
+    ],
+    "python.testing.useExperimentalDebugger": true
+}
