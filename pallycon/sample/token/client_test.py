@@ -18,9 +18,9 @@ consoleHandler.setFormatter(formatter)
 
 """
 ###### 1. set up policy
--1 playback_policy
--2 security_policy
--3 external_key
+        -1 playback_policy
+        -2 security_policy
+        -3 external_key
 """
 import json
 
@@ -32,36 +32,29 @@ from external_key_request import ExternalKeyRequest as ExternalKey
 playback = Playback()
 security = Security()
 external = ExternalKey()
-
 policy = Policy()
-
 
 
 def set_drm_token():
     from pallycon_drm_token_client import PallyConDrmTokenClient as TokenClient 
+    
+    result = 'failed lol'
 
-    """
-    ### set up policy
-    """
     set_policy()
 
     token = (
         TokenClient()
-            .widevine()
-            .playready()
-            .site_key("FDs3PWlU5WlU5D8oLl8oLlFWkCs3PWkC")
-            .access_key("FDs3PLT2FVJDp4Di18z6lzv3DKvNOP20")
-            .site_id("TEST-ID")
-            .user_id("tester-user")
-            .cid("disney-frozen")
-            .policy(policy)
+        .widevine()
+        .site_key("FDs3PWlU5WlU5D8oLl8oLlFWkCs3PWkC")
+        .access_key("FDs3PLT2FVJDp4Di18z6lzv3DKvNOP20")
+        .site_id("TEST-ID")
+        .user_id("tester-user")
+        .cid("disney-frozen")
+        .policy(policy)
     )
 
-    result = 'failed lol'
-    
     result = token.execute()
-    # logger.debug('execute !!!!! \n\t' + token.execute())
-    logger.info('result:\t' + result)
+    logger.info('TOKEN:\t' + result)
 
 
 def set_policy():
@@ -72,7 +65,6 @@ def set_policy():
     set_security_policy()
     set_external_key()
     
-    # policy = Policy(playback, security, external_key=external)
     (
         policy
             .set_playback_policy(playback)
@@ -144,7 +136,4 @@ def set_ncg():
     logger.debug('ncg set:\t' + json.dumps(ncg.ncg_dict()))
     return ncg
 
-
-
-# set_policy()
 set_drm_token()
