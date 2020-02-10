@@ -18,19 +18,15 @@ This works on `PYTHON` version :
 
 ### IDE
 
+- PyCharm
 - VS code
 
 <br>
 
-### Libararies
+### Libraries
 
 ```bash
-cryptography==2.1.4
-pycrypto==2.6.1
-pycryptodome==3.9.6
-pycryptodomex==3.9.6
 pytz==2019.3
-regex==2020.1.8
 ```
 
 see other Libraries installed in this project : `requirements.txt`
@@ -45,14 +41,20 @@ see other Libraries installed in this project : `requirements.txt`
 
 | dir |                   |    description  |
 | -------- | ----------------- | ---- |
-|pallycon|  |      |
+|vscode_sample/pallycon|  |      |
 |          | /sample/exception | exception code |
 |          | /sample/token     | source directory |
 |          | /test             | test (unittest) |
+|pycharm_sample/pallycon|  |      |
+|          | /exception | exception package |
+|          | /token    | source directory |
+|          | /test             | token sample @`client_test.py` |
 
-
+<br>
 
 ### How to get token
+
+0. make **quick** token : go to `pallycon/test/client_test.py`
 
 1. Before get token, you need to set up `policy`.
 
@@ -141,8 +143,8 @@ see other Libraries installed in this project : `requirements.txt`
        token = (
            TokenClient()
            .widevine()
-           .site_key("FDs3PWlU5WlU5D8oLl8oLlFWkCs3PWkC")
-           .access_key("FDs3PLT2FVJDp4Di18z6lzv3DKvNOP20")
+           .site_key("CAs30W7U5e5U5D8oLl8oLlT2Sts3PWkC")
+           .access_key("FDs3TEsT2VJDp4Di18z6lzv3DKvNOP20")
            .site_id("TEST-ID")
            .user_id("tester-user")
            .cid("disney-frozen")
