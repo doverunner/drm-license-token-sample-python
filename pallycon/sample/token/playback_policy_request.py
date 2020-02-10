@@ -61,7 +61,6 @@ class PlaybackPolicyRequest:
 
         return playback_policy
 
-    # regEx - expire_date
     def _check_dates(self):
         pattern = True
         if hasattr(self, 'expire_date') :

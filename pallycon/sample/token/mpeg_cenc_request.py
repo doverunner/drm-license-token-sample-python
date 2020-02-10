@@ -36,7 +36,9 @@ class MpegCencRequest:
     def iv(self, iv):
         self.__iv = iv
 
-
+    """
+    returns dictionary type of MpegCencRequest
+    """
     def mpeg_cenc_dict(self):
         mpeg_cenc = {
             'key_id': self.__key_id,

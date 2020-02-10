@@ -60,5 +60,24 @@ class Test_Token(unittest.TestCase):
     def test_playback_duration(self):
         self.assertEqual(self.token.get_policy().playback_policy.duration , 800)
 
+    def test_user_id(self):
+        self.assertEqual(self.token.get_user_id(), 'tester-user')
+
+    def test_site_key(self):
+        self.assertEqual(self.token.get_site_key(), 'FDs3PWlU5WlU5D8oLl8oLlFWkCs3PWkC')
+
+    def test_access_key(self):
+        self.assertEqual(self.token.get_access_key(), 'FDs3PLT2FVJDp4Di18z6lzv3DKvNOP20')
+
+    def test_site_id(self):
+        self.assertEqual(self.token.get_site_id(), 'TEST-ID')
+
+    def test_cid(self):
+        self.assertEqual(self.token.get_cid(), 'disney-frozen')
+    
+    def test_policy(self):
+        self.assertEqual(self.token.get_policy()+'', self.__policy.toJsonString())
+
+
 if __name__ == '__main__':
     unittest.main()

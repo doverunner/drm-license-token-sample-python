@@ -63,11 +63,3 @@ class PolicyRequest:
             self.__playback_policy = PlaybackPolicyRequest(None,None,None,None)
         if not hasattr(self, '_PolicyRequest__security_policy'):
             self.__security_policy = SecurityPolicyRequest(None,None,None,None)
-
-
-"""
-# 테스트 완료
-playback = PlaybackPolicyRequest(True, None, 600, None)
-policy = PolicyRequest(playback, None, None)
-print('check policy request \n\t', policy.toJsonString())
-"""

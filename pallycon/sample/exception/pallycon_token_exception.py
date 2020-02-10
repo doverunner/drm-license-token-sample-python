@@ -6,10 +6,6 @@ import json
 print(error_code.error_code) 
 """
 
-# get one
-# error_message = mydict['1021']
-# print (error_message)
-
 class PallyConTokenException(Exception):
 
     error_code_list = error_code.error_code
@@ -21,7 +17,6 @@ class PallyConTokenException(Exception):
             self.__message = self.mydict[code]
         else :
             self.__message = 'success'
-        # print('exception : \n\t' , self.toJsonString())
 
     def toJsonString(self):
         jsonStr = {
@@ -37,15 +32,3 @@ class PallyConTokenException(Exception):
     def message(self):
         return self.__message
     
-
-"""
-# how to call
-p_exception = PallyConTokenException('1022')
-print(p_exception.code)
-print(p_exception.message)
-print(p_exception.toJsonString())
-"""
-
-# p = PallyConTokenException()
-# print(p.code)
-# print(p.message)

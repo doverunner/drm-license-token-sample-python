@@ -24,6 +24,13 @@ consoleHandler.setFormatter(formatter)
 """
 import json
 
+import sys, os
+from pathlib import Path
+
+set_path = Path(os.path.abspath(__file__)).parents[1]
+join_path = os.path.join(set_path, 'sample', 'token/')
+sys.path.append(join_path)
+
 from policy_request import PolicyRequest as Policy
 from playback_policy_request import PlaybackPolicyRequest as Playback
 from security_policy_request import SecurityPolicyRequest as Security
@@ -136,4 +143,7 @@ def set_ncg():
     logger.debug('ncg set:\t' + json.dumps(ncg.ncg_dict()))
     return ncg
 
+"""
+get token
+"""
 set_drm_token()

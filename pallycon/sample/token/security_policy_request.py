@@ -62,6 +62,9 @@ class SecurityPolicyRequest:
         self.__playready_security_level = playready_security_level
 
 
+    """
+    returns dictionary type of SecurityPolicyRequest
+    """
     def security_policy_dict(self):
         security_policy={
             'hardware_drm': self.__hardware_drm,
@@ -73,12 +76,3 @@ class SecurityPolicyRequest:
             security_policy['output_protect'] = self.__output_protect.output_protect_dict()
 
         return security_policy
-
-# security = SecurityPolicyRequest(None, None, True, None)
-# print(json.dumps(security.security_policy_dict()))
-
-"""
-output = OutputProtectRequest(None, 2)
-security_2 = SecurityPolicyRequest(False, output, True, 2000)
-print(json.dumps(security_2.security_policy_dict()))
-"""

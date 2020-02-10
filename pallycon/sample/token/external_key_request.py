@@ -33,6 +33,9 @@ class ExternalKeyRequest:
     def ncg(self, ncg):
         self.__ncg = ncg
 
+    """
+    returns dictionary type of ExternalKey
+    """
     def external_key_dict(self):
         external_key = {}
 

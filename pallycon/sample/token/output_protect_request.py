@@ -27,7 +27,10 @@ class OutputProtectRequest:
     @control_hdcp.setter
     def control_hdcp(self, control_hdcp):
         self.__control_hdcp = control_hdcp
-
+    
+    """
+    returns dictionary type of OutputProtectRequest
+    """
     def output_protect_dict(self):
         output_protect = {
             'allow_external_display' : self.__allow_external_display,

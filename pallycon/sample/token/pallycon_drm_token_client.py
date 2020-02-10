@@ -4,21 +4,16 @@ import hashlib
 
 import sys, os
 from pathlib import Path
-"""
-stack trace 0 설정 필요
-"""
-# sys.tracebacklimit = 0
-
-sys.path.append(
-    "/home/nykim/python-projects/DrmTokenSamplePython/.tokenSample/lib/python3.7/site-packages/"
-)
-from Cryptodome.Cipher import AES
-import pytz
-import datetime
 
 dir_path = Path(os.path.abspath(__file__)).parents[1]
 new_dir_path = os.path.join(dir_path, 'exception/')
+site_dir_path = os.path.join(Path(os.path.abspath(__file__)).parents[3], '.tokenSample/lib/python3.7/site-packages/')
 sys.path.append(new_dir_path)
+sys.path.append(site_dir_path)
+
+from Cryptodome.Cipher import AES
+import pytz
+import datetime
 
 from pallycon_token_exception import PallyConTokenException
 
@@ -166,7 +161,6 @@ class PallyConDrmTokenClient:
         if isinstance(playback.duration, bool) or not isinstance(playback.duration, int) :
             raise PallyConTokenException('1008')
         
-        # if notplayback.check_dates()
         if playback._check_dates() is False :
             raise PallyConTokenException('1009')
         
@@ -227,7 +221,7 @@ class PallyConDrmTokenClient:
         return self.__cid
 
     def get_policy(self):
-        return self.__enc_policy
+        return self.__policy.toJsonString()
 
     def get_site_key(self):
         return self.__site_key
