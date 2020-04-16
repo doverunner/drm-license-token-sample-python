@@ -19,7 +19,6 @@ This works on `PYTHON` version :
 ### IDE
 
 - PyCharm
-- VS code
 
 <br>
 
@@ -54,20 +53,19 @@ see other Libraries installed in this project : `requirements.txt`
 
 ### How to get token
 
-0. make **quick** token : go to `pallycon/test/client_test.py`
+0. make **quick** token : go to `pallycon/sample/amke_token.py`and run this module
 
 1. Before get token, you need to set up `policy`.
 
    ```python
-   from policy_request import PolicyRequest as Policy
+   from pallycon_drm_token_policy import PallyConDrmTokenPolicy as Policy
+   
    policy = Policy()
    
-   (
-   	policy
-           .set_playback_policy(playback)
-           .set_security_policy(security)
-           .set_external_key(external)
-   )
+   policy \
+       .playback(playback) \
+       .security(security) \
+       .external(external)
    ```
 
    
@@ -77,60 +75,79 @@ see other Libraries installed in this project : `requirements.txt`
    If you want to set up all policies, 
 
    ```python
-   from playback_policy_request import PlaybackPolicyRequest as Playback
-   from security_policy_request import SecurityPolicyRequest as Security
-   from external_key_request import ExternalKeyRequest as ExternalKey
+   from pallycon_drm_token_policy import PlaybackPolicy
+   from pallycon_drm_token_policy import SecurityPolicy
+   from pallycon_drm_token_policy import ExternalKey
    
-   playback = Playback()
-   security = Security()
+   playback = PlaybackPolicy()
+   security = SecurityPolicy()
    external = ExternalKey()
    
    
    def set_playback_policy():
-       playback.limit = True
-       playback.duration = 800
-       playback.expire_date = '2020-11-15T11:11:30Z'
-   
+       playback \
+           .expire_date('2020-11-15T11:11:30Z') \
+           .allowed_track_types(allowed_track_types.SD_ONLY) \
+           .persistent(True)
+           
    def set_security_policy():
-       security.hardware_drm = True
-       security.output_protect = set_output_protect(
-       security.playready_security_level = 1700
+       security.track_type(track_type.ALL) \
+           .widevine(Widevine()
+                     .security_level(2)
+                     .required_hdcp_version('HDCP_V2')
+                     .required_cgms_flags('COPY_ONCE')
+                     .hdcp_srm_rule('HDCP_SRM_RULE_NONE')) \
+           .playready(Playready()
+                      .security_level(2000)
+                      .digital_video_protection_level(270)
+                      .analog_video_protection_level(100)
+                      .compressed_digital_audio_protection_level(301)
+                      .uncompressed_digital_audio_protection_level(100)
+                      .require_hdcp_type_1(True)) \
+           .fairplay(Fairplay()
+                     .hdcp_enforcement(0)
+                     .allow_airplay(False)
+                     .allow_av_adapter(True)) \
+           .ncg(Ncg()
+                .allow_mobile_abnormal_device(False)
+                .allow_external_display(True)
+                .control_hdcp(2))
    
    def set_external_key():
        """
        ### set mpeg_cecn | hls_aes | ncg
        """
-       external.mpeg_cenc = set_mpeg_cenc()
-       external.hls_aes = set_hls_aes()
-       external.ncg = set_ncg()
+       hls_aes_list = [
+           HlsAes(track_type.SD,
+                  '<key_id>',
+                  '<key>'),
+           HlsAes(track_type.HD,
+                  '<key_id>',
+                  '<key>'),
+           HlsAes(track_type.UHD1,
+                  '<key_id>',
+                  '<key>'),
+           HlsAes(track_type.UHD2,
+                  '<key_id>',
+                  '<key>')
+       ]
    
-   def set_output_protect():
-       from output_protect_request import OutputProtectRequest as OutputProtect
-       output_protect = OutputProtect()
-       output_protect.allow_external_display = True
-       output_protect.control_hdcp = 2
-       return output_protect    
-           
-   def set_mpeg_cenc():
-       from mpeg_cenc_request import MpegCencRequest
-       key_id = 'd5f1a1aa55546666d5f1a1aa55546666'
-       key = '11b11af515c10000fff111a1aef51510'
-       iv = 'f15111a331f15af515c10ef011b00fa0'
-       mpeg_cenc = MpegCencRequest(key_id, key, iv)
-       return mpeg_cenc
-       
-   def set_hls_aes():
-       from hls_aes_request import HlsAesRequest
-       key = '1111aaef51510000ffff1111aaef5151'
-       iv = '11115555444477776666000033332222'
-       hls_aes = HlsAesRequest(key,iv)
-       return hls_aes
-   
-   def set_ncg():
-       from ncg_request import NcgRequest
-       cek = 'd5f1a1aa55546666d5f1a1aa55546666f15111a331f15af515c10ef011b00fa0'
-       ncg = NcgRequest(cek)
-       return ncg    
+       external \
+           .mpeg_cenc(MpegCenc(track_type.HD,
+                               '<key_id>',
+                               '<key>',
+                               '<iv>')) \
+           .mpeg_cenc(MpegCenc(track_type.UHD1,
+                               '<key_id>',
+                               '<key>',
+                               '<iv>')) \
+           .mpeg_cenc(MpegCenc(track_type.UHD2,
+                               '<key_id>',
+                               '<key>',
+                               '<iv>')) \
+           .hls_aes(hls_aes_list) \
+           .ncg(Ncg(track_type.ALL_VIDEO,
+                    '<cek>'))
    ```
 
    
@@ -138,18 +155,21 @@ see other Libraries installed in this project : `requirements.txt`
 3. Import `PallyConDrmTokenClient` from `pallycon_drm_token_client.py`
 
    ```python
-   from pallycon_drm_token_client import PallyConDrmTokenClient as TokenClient 
+   from pallycon_drm_token_client import PallyConDrmTokenClient as Token 
+   
    def set_drm_token():
-       token = (
-           TokenClient()
-           .widevine()
-           .site_key("CAs30W7U5e5U5D8oLl8oLlT2Sts3PWkC")
-           .access_key("FDs3TEsT2VJDp4Di18z6lzv3DKvNOP20")
-           .site_id("TEST-ID")
-           .user_id("tester-user")
-           .cid("disney-frozen")
-           .policy(policy)
-       )
+       set_policy()
+       token = Token()\
+           .widevine()\
+           .site_id("<Site ID>")\
+           .site_key("<Site Key>")\
+           .access_key("<Access Key>")\
+           .user_id("tester-user")\
+           .cid("<Content ID>")\
+           .policy(policy)\
+           .response_format('custom')
+       
+       token.execute()
    ```
 
 
@@ -157,10 +177,10 @@ see other Libraries installed in this project : `requirements.txt`
 4. Make encrypted token !
 
    ```python
-   def get_drm_token():
-       result = token.execute()
-   
-   print (result)
+   try:
+       set_drm_token()
+   except PallyConTokenException as p:
+       print(p)
    ```
 
    if there are minor mistakes when created, `result` will return error messages we already made on  `error_code.py` or you can see the messages below. Follow the comment and fix the bugs.
@@ -183,23 +203,50 @@ see other Libraries installed in this project : `requirements.txt`
 | 1003       | Token err : The accessKey is Required                        |
 | 1004       | Token err : The siteKey is Required                          |
 | 1005       | Token err : The policy is Required                           |
-| 1006       | PlaybackPolicy : The limit should be Boolean                 |
-| 1007       | PlaybackPolicy : The persistent should be Boolean            |
-| 1008       | PlaybackPolicy : The duration should be Integer              |
-| 1009       | PlaybackPolicy : The expireDate time format should be `YYYY-MM-DD'T'HH:mm:ss'Z` |
-| 1010       | PlaybackPolicy : The limit value should be true when setting duration or expireDate |
-| 1011       | SecurityPolicy : The hardwareDrm must be Boolean             |
-| 1012       | SecurityPolicy : The allowMobileAbnormalDevice should be Boolean |
-| 1013       | SecurityPolicy : The playreadySecurityLevel should be Integer |
-| 1014       | SecurityPolicy : The playreadySecurityLevel should be in 150 or more |
-| 1015       | SecurityPolicy : The allowExternalDisplay should be Boolean  |
-| 1016       | SecurityPolicy : The controlHdcp should be Integer           |
-| 1017       | HlsAes : The Key should be 16byte hex String                 |
-| 1018       | HlsAes : The Iv should be 16byte hex String                  |
-| 1019       | MpegCenc : The KeyId should be 16byte hex String             |
-| 1020       | MpegCenc : The Key should be 16byte hex String               |
-| 1021       | MpegCenc : The Iv should be 16byte hex String                |
-| 1022       | Ncg : The Cek should be 32byte hex String                    |
+| 1006       | Policy Err : The playback_policy should be an instance of PlaybackPolicy |
+| 1007       | Policy Err : The security_policy should be an instance of SecurityPolicy or List[SecurityPolicy] |
+| 1008       | Policy Err : The external_key should be an instance of ExternalKey |
+| 1009       | PlaybackPolicy : The persistent should be Boolean            |
+| 1010       | PlaybackPolicy : The license_duration should be Integer      |
+| 1011       | PlaybackPolicy : The expireDate time format should be \'YYYY-MM-DD\'T\'HH:mm:ss\'Z\' |
+| 1012       | PlaybackPolicy : The allowed_track_types value should be in allowed_track_types module |
+| 1013       | SecurityPolicy: The track_type should be in type of  TRACK_TYPE<br />in `pallycon.config.track_type` module |
+| 1014       | SecurityPolicy: The widevine should be an instance of SecurityPolicyWidevine |
+| 1015       | SecurityPolicy: The playready should be an instance of SecurityPolicyPlayready |
+| 1016       | SecurityPolicy: The fairplay should be an instance of SecurityPolicyFairplay |
+| 1017       | SecurityPolicy: The ncg should be an instance of SecurityPolicyNcg |
+| 1018       | ExternalKey: The ExternalKey Should be filled if called      |
+| 1019       | ExternalKey: The MpegCenc should be an instance of MpegCenc or List[MpegCenc] |
+| 1020       | ExternalKey: The HlsAes should be an instance of HlsAes or List[HlsAes] |
+| 1021       | ExternalKey: The Ncg should be an instance of Ncg            |
+| 1022       | SecurityPolicyWidevine: The security_level should be in type of  SECURITY_LEVEL<br />in `pallycon.config.widevine.security_level` module |
+| 1023       | SecurityPolicyWidevine: The required_hdcp_version should be in type of  REQUIRED_HDCP_VERSION<br />in `pallycon.config.widevine.required_hdcp_version` module |
+| 1024       | SecurityPolicyWidevine: The required_cgms_flagsshould be in type of  REQUIRED_CGMS_FLAGS<br />in `pallycon.config.widevine.required_cgms_flags` module |
+| 1025       | SecurityPolicyWidevine: The disable_analog_output should be Boolean |
+| 1026       | SecurityPolicyWidevine: The hdcp_srm_rule should be in type of  HDCP_SRM_RULE<br />in `pallycon.config.widevine.hdcp_srm_rule` module |
+| 1027       | SecurityPolicyPlayready: The security_level should be in type of  SECURITY_LEVEL<br />in `pallycon.config.playready.security_level` module |
+| 1028       | SecurityPolicyPlayready: The digital_video_protection_level should be in type of  DIGITAL_VIDEO_PROTECTION_LEVEL<br />in `pallycon.config.playready.digital_video_protection` module |
+| 1029       | SecurityPolicyPlayready: The analog_video_protection_level should be in type of  ANALOG_VIDEO_PROTECTION_LEVEL<br />in `pallycon.config.playready.analog_video_protection` module |
+| 1030       | SecurityPolicyPlayready: The compressed_digital_audio_protection_level should be in type of  COMPRESSED_DIGITAL_AUDIO_PROTECTION<br />in `pallycon.config.playready.compressed_digital_audio_protection` module |
+| 1031       | SecurityPolicyPlayready: The uncompressed_digital_audio_protection_level should be in type of  UNCOMPRESSED_DIGITAL_AUDIO_PROTECTION<br />in `pallycon.config.playready.uncompressed_digital_audio_protection` module |
+| 1032       | SecurityPolicyPlayready: The require_hdcp_type_1 should be Boolean |
+| 1033       | SecurityPolicyFairplay: The hdcp_enforcement should be in type of FAIRPLAY_HDCP_ENFORCEMENT<br />in `pallycon.config.fairplay_hdcp_enforcement` module |
+| 1034       | SecurityPolicyFairplay: The allow_airplay should be Boolean  |
+| 1035       | SecurityPolicyFairplay: The allow_av_adapter should be Boolean |
+| 1036       | SecurityPolicyNcg: The allow_mobile_abnormal_device should be Boolean |
+| 1037       | SecurityPolicyNcg: The allow_external_display should be Boolean |
+| 1038       | SecurityPolicyNcg: The control_hdcp should be in type of CONTROL_HDCP<br />in `pallycon.config.ncg_control_hdcp` module |
+| 1039       | ExternalKeyMpegCenc: The track_type should be in type of  TRACK_TYPE<br />in `pallycon.config.track_type` module |
+| 1040       | ExternalKeyMpegCenc : The key_id should be 16byte hex String |
+| 1041       | ExternalKeyMpegCenc : The key should be 16byte hex String    |
+| 1042       | ExternalKeyMpegCenc : The iv should be 16byte hex String     |
+| 1043       | ExternalKeyHlsAes: The track_type should be in type of  TRACK_TYPE<br />in `pallycon.config.track_type` module |
+| 1044       | ExternalKeyHlsAes : The key should be 16byte hex String      |
+| 1045       | ExternalKeyHlsAes : The iv should be 16byte hex String       |
+| 1046       | ExternalKeyNcg : The track_type should be in type of  TRACK_TYPE<br />in `pallycon.config.track_type` module |
+| 1047       | ExternalKeyNcg : The Cek should be 32byte hex String         |
+
+
 
 
 
