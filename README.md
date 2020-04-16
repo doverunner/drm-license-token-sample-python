@@ -38,16 +38,13 @@ see other Libraries installed in this project : `requirements.txt`
 
 ## Directories
 
-| dir |                   |    description  |
-| -------- | ----------------- | ---- |
-|vscode_sample/pallycon|  |      |
-|          | /sample/exception | exception code |
-|          | /sample/token     | source directory |
-|          | /test             | test (unittest) |
-|pycharm_sample/pallycon|  |      |
-|          | /exception | exception package |
-|          | /token    | source directory |
-|          | /test             | token sample @`client_test.py` |
+| dir         |            | description                         |
+| ----------- | ---------- | ----------------------------------- |
+| v2/pallycon |            |                                     |
+|             | /config    | configuration module for policy     |
+|             | /exception | exception package                   |
+|             | /sample    | make token sample @`client_test.py` |
+|             | /token     | source directory                    |
 
 <br>
 
