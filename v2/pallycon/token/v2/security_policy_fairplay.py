@@ -2,14 +2,14 @@ from pallycon.exception.pallycon_token_exception import PallyConTokenException
 
 class SecurityPolicyFairplay:
     def __init__(self):
-        self.__fairplay_hdcp_enforcement = -1
-        self.__fairplay_allow_airplay = True
-        self.__fairplay_allow_av_adapter = True
+        self.__fairplay_hdcp_enforcement = None
+        self.__fairplay_allow_airplay = None
+        self.__fairplay_allow_av_adapter = None
 
 
     """ setter """
     def hdcp_enforcement(self, hdcp_enforcement: int):
-        from pallycon.config import check
+        from pallycon.config.fairplay_hdcp_enforcement import check
         if check(hdcp_enforcement):
             self.__fairplay_hdcp_enforcement = hdcp_enforcement
         else:
@@ -41,9 +41,13 @@ class SecurityPolicyFairplay:
         return self.__fairplay_allow_av_adapter
 
     def dict(self):
-        fairplay = {
-            'hdcp_enforcement': self.__fairplay_hdcp_enforcement,
-            'allow_airplay': self.__fairplay_allow_airplay,
-            'allow_av_adapter': self.__fairplay_allow_av_adapter
-        }
+        fairplay = {}
+
+        if self.__fairplay_hdcp_enforcement is not None:
+            fairplay['hdcp_enforcement'] = self.__fairplay_hdcp_enforcement
+        if self.__fairplay_allow_airplay is not None:
+            fairplay['allow_airplay'] = self.__fairplay_allow_airplay
+        if self.__fairplay_allow_av_adapter is not None:
+            fairplay['allow_av_adapter'] = self.__fairplay_allow_av_adapter
+
         return fairplay

@@ -4,10 +4,10 @@ import re
 
 class PlaybackPolicy:
     def __init__(self):
-        self.__policy_persistent = False
-        self.__policy_license_duration = 0
-        self.__policy_expire_date = ''
-        self.__policy_allowed_track_types = 'SD_HD'
+        self.__policy_persistent = None
+        self.__policy_license_duration = None
+        self.__policy_expire_date = None
+        self.__policy_allowed_track_types = None
 
     def persistent(self, persistent: bool):
         if isinstance(persistent, bool):
@@ -31,7 +31,7 @@ class PlaybackPolicy:
         return self
 
     def allowed_track_types(self, allowed_track_types: str):
-        from pallycon.config import check
+        from pallycon.config.allowed_track_types import check
         if isinstance(allowed_track_types, str) and check(allowed_track_types):
             self.__policy_allowed_track_types = allowed_track_types
         else:
@@ -52,12 +52,17 @@ class PlaybackPolicy:
         return self.__policy_allowed_track_types
 
     def dict(self):
-        playback_policy = {
-            'persistent': self.__policy_persistent,
-            'license_duration': self.__policy_license_duration,
-            'expire_date': self.__policy_expire_date,
-            'allowed_track_types': self.__policy_allowed_track_types
-        }
+        playback_policy = {}
+
+        if self.__policy_persistent is not None:
+            playback_policy['persistent'] = self.__policy_persistent
+        if self.__policy_license_duration is not None:
+            playback_policy['license_duration'] = self.__policy_license_duration
+        if self.__policy_expire_date is not None:
+            playback_policy['expire_date'] = self.__policy_expire_date
+        if self.__policy_allowed_track_types is not None:
+            playback_policy['allowed_track_types'] = self.__policy_allowed_track_types
+
         return playback_policy
 
 

@@ -1,6 +1,6 @@
 from pallycon.exception.pallycon_token_exception import PallyConTokenException
 from pallycon.config import track_type as hls_aes_track_type
-from pallycon.config import check
+from pallycon.config.track_type import check
 
 
 class ExternalKeyHlsAes:

@@ -24,7 +24,8 @@ class PallyConDrmTokenClient:
         self.__cid = None
         self.__policy = None
         self.__enc_policy = None
-        self.__response_format = 'ordinal'
+        self.__response_format = 'original'
+        self.__payload = None
 
     def site_key(self, site_key):
         self.__site_key = site_key
@@ -60,12 +61,15 @@ class PallyConDrmTokenClient:
 
     def policy(self, policy):
         self.__policy = policy.to_json_str()
-        # policy = json.dumps(policy.dict())
         self.__enc_policy = (self.__make_enc_policy(self.__policy)).decode("utf-8")
         return self
 
     def response_format(self, response_format):
-        self.__response_format = response_format
+        from pallycon.config.response_format import check
+        if check(response_format):
+            self.__response_format = response_format
+        else:
+            raise PallyConTokenException('1048')
         return self
 
     def __timestamp(self):
@@ -97,6 +101,8 @@ class PallyConDrmTokenClient:
             self.__timestamp()
             self.__hash()
             payload_str = json.dumps(self.__get_payload())
+            self.__payload = payload_str
+
             return base64.b64encode(payload_str.encode("utf-8")).decode("utf-8")
 
         except PallyConTokenException:
@@ -144,29 +150,6 @@ class PallyConDrmTokenClient:
         if self.__policy is None:
             raise PallyConTokenException('1005')
 
-
-
-
-
-        # if not hasattr(self, '_PallyConDrmTokenClient__user_id'):
-        #     raise PallyConTokenException('1000')
-        #
-        # if not hasattr(self, '_PallyConDrmTokenClient__cid'):
-        #     raise PallyConTokenException('1001')
-        #
-        # if not hasattr(self, '_PallyConDrmTokenClient__site_id'):
-        #     raise PallyConTokenException('1002')
-        #
-        # if not hasattr(self, '_PallyConDrmTokenClient__access_key'):
-        #     raise PallyConTokenException('1003')
-        #
-        # if not hasattr(self, '_PallyConDrmTokenClient__site_key'):
-        #     raise PallyConTokenException('1004')
-        #
-        # if not hasattr(self, '_PallyConDrmTokenClient__policy'):
-        #     raise PallyConTokenException('1005')
-
-
     def get_drm_type(self):
         return self.__drm_type
 
@@ -196,6 +179,10 @@ class PallyConDrmTokenClient:
 
     def get_response_format(self):
         return self.__response_format
+
+    def to_json_str(self):
+        return self.__payload
+
 
 
 if __name__ == '__main__':

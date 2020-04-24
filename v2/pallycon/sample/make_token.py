@@ -51,6 +51,7 @@ def set_drm_token():
         .response_format('custom')
 
     logger.info(":::::: TOKEN ::::::\n" + token.execute())
+    logger.debug(':::::: BEFORE ENCRYPT TOKEN ::::::' + token.to_json_str())
 
 
 

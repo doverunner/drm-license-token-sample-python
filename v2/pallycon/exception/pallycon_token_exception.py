@@ -77,7 +77,9 @@ error_list = [
     ('1046', 'ExternalKeyNcg : The track_type should be in type of TRACK_TYPE '
              'in [pallycon.config.track_type] module'),
     ('1047', 'ExternalKeyNcg : The Cek should be 32byte hex String'),
-    
+    ('1048', 'Token err : The response_format should be in type of RESPONSE_FORMAT '
+             'in [pallycon.config.response_format] module')
+
 ]
 error_dict = dict(error_list)
 
@@ -90,14 +92,9 @@ class PallyConTokenException(Exception):
         else:
             self.__message = 'success'
 
-    def error_message(self):
-        json_str = {
-            self.__code: self.__message
-        }
-        return json.dumps(json_str)
-
     def __str__(self):
         json_str = {
-            self.__code: self.__message
+            'error_code': self.__code,
+            'error_message': self.__message
         }
-        return json.dumps(json_str)
+        return 'YOU\'VE GOT THE ERROR ||||| ' + json.dumps(json_str)
