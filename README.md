@@ -59,10 +59,15 @@ see other Libraries installed in this project : `requirements.txt`
    
    policy = Policy()
    
-   policy \
-       .playback(playback) \
-       .security(security) \
-       .external(external)
+   def set_policy():
+       set_playback_policy()
+       set_security_policy()
+       set_external_key()
+       
+       policy \
+           .playback(playback) \
+           .security(security) \
+           .external(external)
    ```
 
    
@@ -180,11 +185,25 @@ see other Libraries installed in this project : `requirements.txt`
        print(p)
    ```
 
-   if there are minor mistakes when created, `result` will return error messages we already made on  `error_code.py` or you can see the messages below. Follow the comment and fix the bugs.
+   `PallyConTokenException` will arise if there are minor mistakes when created. The `result` will return JSON with an `error_code` and `error_message`. Follow the comment and fix the bugs. 
 
+   For example, 
+   
+   ```json
+   {
+       "error_code": "1048",
+       "error_message": "Token err : The response_format should be in type of RESPONSE_FORMAT in [pallycon.config.response_format] module"
+   }
+   ```
+   
+   If you want to see All the error codes and error messages you would get, see the `error_list` in `pallycon\excepion\pallycon_tokne_exception.py` module. 
    
 
 
+
+
+
+We hope this instruction would be helpful to generate DRM License Token to request PallyCon Multi-DRM Cloud Server and get the License issued from.
 
 
 
@@ -242,7 +261,7 @@ see other Libraries installed in this project : `requirements.txt`
 | 1045       | ExternalKeyHlsAes : The iv should be 16byte hex String       |
 | 1046       | ExternalKeyNcg : The track_type should be in type of  TRACK_TYPE<br />in `pallycon.config.track_type` module |
 | 1047       | ExternalKeyNcg : The Cek should be 32byte hex String         |
-
+| 1048       | Token err : The response_format should be in type of RESPONSE_FORMAT<br />in `pallycon.config.response_format` module |
 
 
 

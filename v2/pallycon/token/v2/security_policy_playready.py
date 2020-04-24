@@ -2,17 +2,17 @@ from pallycon.exception.pallycon_token_exception import PallyConTokenException
 
 class SecurityPolicyPlayready:
     def __init__(self):
-        self.__playready_security_level = 150
-        self.__playready_digital_video_protection = 100
-        self.__playready_analog_video_protection = 100
-        self.__playready_compressed_digital_audio_protection = 100
-        self.__playready_uncompressed_digital_audio_protection = 100
-        self.__playready_require_hdcp_type_1 = False
+        self.__playready_security_level = None
+        self.__playready_digital_video_protection = None
+        self.__playready_analog_video_protection = None
+        self.__playready_compressed_digital_audio_protection = None
+        self.__playready_uncompressed_digital_audio_protection = None
+        self.__playready_require_hdcp_type_1 = None
 
 
     """ setter """
     def security_level(self, security_level: int):
-        from pallycon.config import check
+        from pallycon.config.playready.security_level import check
         if check(security_level):
             self.__playready_security_level = security_level
         else:
@@ -20,7 +20,7 @@ class SecurityPolicyPlayready:
         return self
 
     def digital_video_protection_level(self, digital_video_protection: int):
-        from pallycon.config import check
+        from pallycon.config.playready.digital_video_protection import check
         if check(digital_video_protection):
             self.__playready_digital_video_protection = digital_video_protection
         else:
@@ -28,7 +28,7 @@ class SecurityPolicyPlayready:
         return self
 
     def analog_video_protection_level(self, analog_video_protection: int):
-        from pallycon.config import check
+        from pallycon.config.playready.analog_video_protection import check
         if check(analog_video_protection):
             self.__playready_analog_video_protection = analog_video_protection
         else:
@@ -36,7 +36,7 @@ class SecurityPolicyPlayready:
         return self
 
     def compressed_digital_audio_protection_level(self, compressed_digital_audio_protection: int):
-        from pallycon.config import check
+        from pallycon.config.playready.compressed_digital_audio_protection import check
         if check(compressed_digital_audio_protection):
             self.__playready_compressed_digital_audio_protection = compressed_digital_audio_protection
         else:
@@ -44,7 +44,7 @@ class SecurityPolicyPlayready:
         return self
 
     def uncompressed_digital_audio_protection_level(self, uncompressed_digital_audio_protection: int):
-        from pallycon.config import check
+        from pallycon.config.playready.uncompressed_digital_audio_protection import check
         if check(uncompressed_digital_audio_protection):
             self.__playready_uncompressed_digital_audio_protection = uncompressed_digital_audio_protection
         else:
@@ -79,12 +79,21 @@ class SecurityPolicyPlayready:
         return self.__playready_require_hdcp_type_1
 
     def dict(self):
-        playready = {
-            'security_level': self.__playready_security_level,
-            'digital_video_protection_level': self.__playready_digital_video_protection,
-            'analog_video_protection_level': self.__playready_analog_video_protection,
-            'compressed_digital_audio_protection_level': self.__playready_compressed_digital_audio_protection,
-            'uncompressed_digital_audio_protection_level': self.__playready_uncompressed_digital_audio_protection,
-            'require_hdcp_type_1': self.__playready_require_hdcp_type_1
-        }
+        playready = {}
+
+        if self.__playready_security_level is not None:
+            playready['security_level'] = self.__playready_security_level
+        if self.__playready_digital_video_protection is not None:
+            playready['digital_video_protection_level'] = self.__playready_digital_video_protection
+        if self.__playready_analog_video_protection is not None:
+            playready['analog_video_protection_level'] = self.__playready_analog_video_protection
+        if self.__playready_compressed_digital_audio_protection is not None:
+            playready['compressed_digital_audio_protection_level'] = \
+                self.__playready_compressed_digital_audio_protection
+        if self.__playready_uncompressed_digital_audio_protection is not None:
+            playready['uncompressed_digital_audio_protection_level'] = \
+                self.__playready_uncompressed_digital_audio_protection
+        if self.__playready_require_hdcp_type_1 is not None:
+            playready['require_hdcp_type_1'] = self.__playready_require_hdcp_type_1
+
         return playready

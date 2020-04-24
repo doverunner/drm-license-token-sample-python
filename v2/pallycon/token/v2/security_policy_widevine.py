@@ -2,16 +2,16 @@ from pallycon.exception.pallycon_token_exception import PallyConTokenException
 
 class SecurityPolicyWidevine:
     def __init__(self):
-        self.__widevine_security_level = 1
-        self.__widevine_required_hdcp_version = 'HDCP_NONE'
-        self.__widevine_required_cgms_flags = 'CGMS_NONE'
-        self.__widevine_disable_analog_output = False
-        self.__widevine_hdcp_srm_rule = 'HDCP_SRM_RULE_NONE'
+        self.__widevine_security_level = None
+        self.__widevine_required_hdcp_version = None
+        self.__widevine_required_cgms_flags = None
+        self.__widevine_disable_analog_output = None
+        self.__widevine_hdcp_srm_rule = None
 
 
     """ setter """
     def security_level(self, security_level: int):
-        from pallycon.config import check
+        from pallycon.config.widevine.security_level import check
         if check(security_level):
             self.__widevine_security_level = security_level
         else:
@@ -67,12 +67,18 @@ class SecurityPolicyWidevine:
         return self.__widevine_hdcp_srm_rule
 
     def dict(self):
-        widevine = {
-            'security_level': self.__widevine_security_level,
-            'required_hdcp_version': self.__widevine_required_hdcp_version,
-            'required_cgms_flags': self.__widevine_required_cgms_flags,
-            'disable_analog_output': self.__widevine_disable_analog_output,
-            'hdcp_srm_rule': self.__widevine_hdcp_srm_rule
-        }
+        widevine = {}
+
+        if self.__widevine_security_level is not None:
+            widevine['security_level'] = self.__widevine_security_level
+        if self.__widevine_required_hdcp_version is not None:
+            widevine['required_hdcp_version'] = self.__widevine_required_hdcp_version
+        if self.__widevine_required_cgms_flags is not None:
+            widevine['required_cgms_flags'] = self.__widevine_required_cgms_flags
+        if self.__widevine_disable_analog_output is not None:
+            widevine['disable_analog_output'] = self.__widevine_disable_analog_output
+        if self.__widevine_hdcp_srm_rule is not None:
+            widevine['hdcp_srm_rule'] = self.__widevine_hdcp_srm_rule
+
         return widevine
 

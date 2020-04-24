@@ -1,6 +1,6 @@
 from pallycon.exception.pallycon_token_exception import PallyConTokenException
 from pallycon.config import track_type as mpeg_track_type
-from pallycon.config import check
+from pallycon.config.track_type import check
 
 
 class ExternalKeyMpegCenc:

@@ -61,23 +61,20 @@ class PallyConDrmTokenPolicy:
         return self.__policy_external
 
     def dict(self):
-        self.__validate()
         policy = {
-            'policy_version': self.__policy_version,
-            'playback_policy': self.__policy_playback,
-            'security_policy': self.__policy_security
+            'policy_version': self.__policy_version
         }
+        if self.__policy_playback is not None:
+            policy['playback_policy'] = self.__policy_playback
+        if len(self.__policy_security) > 0:
+            policy['security_policy'] = self.__policy_security
         if self.__policy_external is not None:
             policy['external_policy'] = self.__policy_external
+
         return policy
 
     def to_json_str(self):
         return json.dumps(self.dict())
 
-    def __validate(self):
-        if self.__policy_playback is None:
-            self.__policy_playback = PlaybackPolicy().dict()
 
-        if len(self.__policy_security) is 0:
-            self.__policy_security = [SecurityPolicy().dict()]
 

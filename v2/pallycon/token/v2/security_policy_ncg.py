@@ -3,9 +3,9 @@ from pallycon.exception.pallycon_token_exception import PallyConTokenException
 class SecurityPolicyNcg:
 
     def __init__(self):
-        self.__ncg_allow_mobile_abnormal_device = False
-        self.__ncg_allow_external_display = False
-        self.__ncg_control_hdcp = 0
+        self.__ncg_allow_mobile_abnormal_device = None
+        self.__ncg_allow_external_display = None
+        self.__ncg_control_hdcp = None
 
     """ setter """
     def allow_mobile_abnormal_device(self, allow_mobile_abnormal_device: bool):
@@ -23,7 +23,7 @@ class SecurityPolicyNcg:
         return self
 
     def control_hdcp(self, control_hdcp: int):
-        from pallycon.config import check
+        from pallycon.config.ncg_control_hdcp import check
         if check(control_hdcp):
             self.__ncg_control_hdcp = control_hdcp
         else:
@@ -41,11 +41,15 @@ class SecurityPolicyNcg:
         return self.__ncg_control_hdcp
 
     def dict(self):
-        ncg = {
-            'allow_mobile_abnormal_device': self.__ncg_allow_mobile_abnormal_device,
-            'allow_external_display': self.__ncg_allow_external_display,
-            'control_hdcp': self.__ncg_control_hdcp
-        }
+        ncg = {}
+
+        if self.__ncg_allow_mobile_abnormal_device is not None:
+            ncg['allow_mobile_abnormal_device'] = self.__ncg_allow_mobile_abnormal_device
+        if self.__ncg_allow_external_display is not None:
+            ncg['allow_external_display'] = self.__ncg_allow_external_display
+        if self.__ncg_control_hdcp is not None:
+            ncg['control_hdcp'] = self.__ncg_control_hdcp
+
         return ncg
 
 
