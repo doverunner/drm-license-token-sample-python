@@ -106,8 +106,7 @@ def set_security_policy():
                    .security_level(2000)
                    .digital_video_protection_level(270)
                    .analog_video_protection_level(100)
-                   .compressed_digital_audio_protection_level(301)
-                   .uncompressed_digital_audio_protection_level(100)
+                   .digital_audio_protection_level(301)
                    .require_hdcp_type_1(True)) \
         .fairplay(Fairplay()
                   .hdcp_enforcement(0)
