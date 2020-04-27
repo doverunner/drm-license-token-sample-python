@@ -103,8 +103,7 @@ see other Libraries installed in this project : `requirements.txt`
                       .security_level(2000)
                       .digital_video_protection_level(270)
                       .analog_video_protection_level(100)
-                      .compressed_digital_audio_protection_level(301)
-                      .uncompressed_digital_audio_protection_level(100)
+                      .digital_audio_protection_level(301)
                       .require_hdcp_type_1(True)) \
            .fairplay(Fairplay()
                      .hdcp_enforcement(0)
@@ -151,9 +150,9 @@ see other Libraries installed in this project : `requirements.txt`
            .ncg(Ncg(track_type.ALL_VIDEO,
                     '<cek>'))
    ```
-
    
 
+   
 3. Import `PallyConDrmTokenClient` from `pallycon_drm_token_client.py`
 
    ```python
@@ -203,7 +202,15 @@ see other Libraries installed in this project : `requirements.txt`
 
 
 
+
+
+
 We hope this instruction would be helpful to generate DRM License Token to request PallyCon Multi-DRM Cloud Server and get the License issued from.
+
+
+
+
+
 
 
 
@@ -243,8 +250,7 @@ We hope this instruction would be helpful to generate DRM License Token to reque
 | 1027       | SecurityPolicyPlayready: The security_level should be in type of  SECURITY_LEVEL<br />in `pallycon.config.playready.security_level` module |
 | 1028       | SecurityPolicyPlayready: The digital_video_protection_level should be in type of  DIGITAL_VIDEO_PROTECTION_LEVEL<br />in `pallycon.config.playready.digital_video_protection` module |
 | 1029       | SecurityPolicyPlayready: The analog_video_protection_level should be in type of  ANALOG_VIDEO_PROTECTION_LEVEL<br />in `pallycon.config.playready.analog_video_protection` module |
-| 1030       | SecurityPolicyPlayready: The compressed_digital_audio_protection_level should be in type of  COMPRESSED_DIGITAL_AUDIO_PROTECTION<br />in `pallycon.config.playready.compressed_digital_audio_protection` module |
-| 1031       | SecurityPolicyPlayready: The uncompressed_digital_audio_protection_level should be in type of  UNCOMPRESSED_DIGITAL_AUDIO_PROTECTION<br />in `pallycon.config.playready.uncompressed_digital_audio_protection` module |
+| 1030       | SecurityPolicyPlayready: The digital_audio_protection_level should be in type of  DIGITAL_AUDIO_PROTECTION<br />in `pallycon.config.playready.digital_audio_protection` module |
 | 1032       | SecurityPolicyPlayready: The require_hdcp_type_1 should be Boolean |
 | 1033       | SecurityPolicyFairplay: The hdcp_enforcement should be in type of FAIRPLAY_HDCP_ENFORCEMENT<br />in `pallycon.config.fairplay_hdcp_enforcement` module |
 | 1034       | SecurityPolicyFairplay: The allow_airplay should be Boolean  |

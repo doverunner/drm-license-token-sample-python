@@ -163,7 +163,7 @@ class PallyConDrmTokenClient:
         return self.__cid
 
     def get_policy(self):
-        return self.__policy.to_json_string()
+        return self.__policy.to_json_str()
 
     def get_site_key(self):
         return self.__site_key

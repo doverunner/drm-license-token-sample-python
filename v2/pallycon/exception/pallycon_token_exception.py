@@ -50,12 +50,9 @@ error_list = [
     ('1029', 'SecurityPolicyPlayready: The analog_video_protection_level should be '
              'in type of ANALOG_VIDEO_PROTECTION_LEVEL '
              'in [pallycon.config.playready.analog_video_protection] module'),
-    ('1030', 'SecurityPolicyPlayready: The compressed_digital_audio_protection_level should be '
-             'in type of COMPRESSED_DIGITAL_AUDIO_PROTECTION '
-             'in [pallycon.config.playready.compressed_digital_audio_protection] module'),
-    ('1031', 'SecurityPolicyPlayready: The uncompressed_digital_audio_protection_level should be '
-             'in type of UNCOMPRESSED_DIGITAL_AUDIO_PROTECTION '
-             'in [pallycon.config.playready.uncompressed_digital_audio_protection] module'),
+    ('1030', 'SecurityPolicyPlayready: The digital_audio_protection_level should be '
+             'in type of DIGITAL_AUDIO_PROTECTION '
+             'in [pallycon.config.playready.digital_audio_protection] module'),
     ('1032', 'SecurityPolicyPlayready: The require_hdcp_type_1 should be Boolean'),
     ('1033', 'SecurityPolicyFairplay: The hdcp_enforcement should be in type of FAIRPLAY_HDCP_ENFORCEMENT '
              'in [pallycon.config.fairplay_hdcp_enforcement] module'),
