@@ -68,6 +68,6 @@ class PlaybackPolicy:
 
 def _check_dates(expire_date: str) -> bool:
     pattern = re.match(
-        "^[0-9]{4}-[0,1][0-9]-[0-5][0-9]T([0-2][0-3]:[0-5][0-9]:[0-5][0-9])Z$",
+        "^[0-9]{4}-[0,1][0-9]-[0-5][0-9]T([0-2][0-9]:[0-5][0-9]:[0-5][0-9])Z$",
         expire_date)
     return pattern
