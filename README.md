@@ -268,8 +268,8 @@ We hope this instruction would be helpful to generate DRM License Token to reque
 | 1046       | ExternalKeyNcg : The track_type should be in type of  TRACK_TYPE<br />in `pallycon.config.track_type` module |
 | 1047       | ExternalKeyNcg : The Cek should be 32byte hex String         |
 | 1048       | Token err : The response_format should be in type of RESPONSE_FORMAT<br />in `pallycon.config.response_format` module |
-
-
+| 1049       | PlaybackPolicy : The rental_duration should be Integer |
+| 1050       | PlaybackPolicy : The playback_duration should be Integer |
 
 
 

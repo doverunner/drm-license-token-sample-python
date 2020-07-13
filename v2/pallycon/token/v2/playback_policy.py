@@ -8,6 +8,8 @@ class PlaybackPolicy:
         self.__policy_license_duration = None
         self.__policy_expire_date = None
         self.__policy_allowed_track_types = None
+        self.__policy_rental_duration = None
+        self.__policy_playback_duration = None
 
     def persistent(self, persistent: bool):
         if isinstance(persistent, bool):
@@ -38,6 +40,20 @@ class PlaybackPolicy:
             raise PallyConTokenException('1012')
         return self
 
+    def rental_duration(self, rental_duration: int):
+        if isinstance(rental_duration, int) and not isinstance(rental_duration, bool):
+            self.__policy_rental_duration = rental_duration
+        else:
+            raise PallyConTokenException('1049')
+        return self
+
+    def playback_duration(self, playback_duration: int):
+        if isinstance(playback_duration, int) and not isinstance(playback_duration, bool):
+            self.__policy_playback_duration = playback_duration
+        else:
+            raise PallyConTokenException('1050')
+        return self
+
     """ getter of persistent, license_duration, expire_date and allowed_track_types """
     def get_persistent(self) -> bool:
         return self.__policy_persistent
@@ -51,6 +67,13 @@ class PlaybackPolicy:
     def get_allowed_track_types(self) -> str:
         return self.__policy_allowed_track_types
 
+    def get_rental_duration(self) -> int:
+        return self.__policy_rental_duration
+
+    def get_playback_duration(self) -> int:
+        return self.__policy_playback_duration
+
+
     def dict(self):
         playback_policy = {}
 
@@ -62,6 +85,10 @@ class PlaybackPolicy:
             playback_policy['expire_date'] = self.__policy_expire_date
         if self.__policy_allowed_track_types is not None:
             playback_policy['allowed_track_types'] = self.__policy_allowed_track_types
+        if self.__policy_rental_duration is not None:
+            playback_policy['rental_duration'] = self.__policy_rental_duration
+        if self.__policy_playback_duration is not None:
+            playback_policy['playback_duration'] = self.__policy_playback_duration
 
         return playback_policy
 
