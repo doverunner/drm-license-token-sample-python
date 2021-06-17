@@ -55,7 +55,7 @@ conda env create -f environment.yml
 ```
 <br>
 
-For nother environments users, install packages using `requirements.txt`.   
+For other environments users, install packages using `requirements.txt`.   
 ```text
 certifi==2021.5.30
 pycrypto==2.6.1
@@ -186,6 +186,7 @@ and figure out which specification to use.
 
    ```python
    from pallycon_drm_token_client import PallyConDrmTokenClient as Token 
+   from pallycon.config import response_format
    
    def set_drm_token():
        set_policy()
@@ -197,7 +198,7 @@ and figure out which specification to use.
            .user_id("tester-user")\
            .cid("<Content ID>")\
            .policy(policy)\
-           .response_format('custom')
+           .response_format(response_format.ORIGINAL)
        
        token.execute()
    ```

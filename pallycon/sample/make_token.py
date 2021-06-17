@@ -40,6 +40,8 @@ you can get the error codes and the messages we offer through 'PallyConTokenExce
 
 
 def set_drm_token():
+    from pallycon.config import response_format
+
     set_policy()
     token = Token() \
         .widevine() \
@@ -49,7 +51,7 @@ def set_drm_token():
         .user_id("tester-user") \
         .cid("<Content ID>") \
         .policy(policy) \
-        .response_format('custom')
+        .response_format(response_format.ORIGINAL)
 
     logger.info(":::::: TOKEN ::::::\n" + token.execute())
     logger.debug(':::::: BEFORE ENCRYPT TOKEN ::::::' + token.to_json_str())
