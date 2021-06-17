@@ -10,6 +10,9 @@ from pallycon.exception.pallycon_token_exception import PallyConTokenException
 
 def _pad(words):
     BS = 16
+    print('words', words)
+    print('text length', len(words))
+    print('block size', (BS - len(words) % BS))
     return (words + (BS - len(words) % BS) * chr(BS - len(words) % BS)).encode("utf-8")
 
 
@@ -89,9 +92,12 @@ class PallyConDrmTokenClient:
                 + self.__timestamp
         )
 
+        print('hash:::::', hash_input)
+
         hash_string = base64.b64encode(
             hashlib.sha256(bytes(hash_input, "utf-8")).digest()
         )
+        print('encode::::::', hash_string)
         self.__hash = hash_string.decode("utf-8")
         return self
 
@@ -127,6 +133,7 @@ class PallyConDrmTokenClient:
     def __make_enc_policy(self, msg):
         key = bytes(self.__site_key, "utf-8")
         raw = _pad(msg)
+        print('padded text', raw)
         iv = self.__AES_IV.encode("utf-8")
         cipher = AES.new(key, AES.MODE_CBC, iv)
         return base64.b64encode(cipher.encrypt(raw))

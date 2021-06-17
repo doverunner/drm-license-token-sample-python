@@ -12,27 +12,56 @@
 
 This works on `PYTHON` version : 
 
-- 3.7.6 and greater
+- 3.7.10 and greater
 
 <br>
 
 ### IDE
 
 - PyCharm
+- Anaconda 4.8.2
 
 <br>
 
 ### Libraries
 
-```bash
-pytz==2019.3
+For Anaconda users, create a virtual environment using `environment.yml` file and command.  
+
+`environment.yml` file :     
+```text
+name: drm_token {{or, set environment name}}
+channels:
+  - defaults
+dependencies:
+  - ca-certificates=2021.5.25
+  - certifi=2021.5.30
+  - openssl=1.1.1k
+  - pip=21.1.2
+  - pycrypto=2.6.1
+  - python=3.7.10
+  - pytz=2021.1
+  - setuptools=52.0.0
+  - sqlite=3.35.4
+  - vc=14.2
+  - vs2015_runtime=14.27.29016
+  - wheel=0.36.2
+  - wincertstore=0.2
+prefix: {{set anaconda env directory}}
+``` 
+
+command : 
+```shell script
+conda env create -f environment.yml
 ```
+<br>
 
-see other Libraries installed in this project : `requirements.txt`
-
-
-
-
+For nother environments users, install packages using `requirements.txt`.   
+```text
+certifi==2021.5.30
+pycrypto==2.6.1
+pytz==2021.1
+wincertstore==0.2
+```
 
 <br><br>
 
@@ -40,7 +69,7 @@ see other Libraries installed in this project : `requirements.txt`
 
 | dir         |            | description                         |
 | ----------- | ---------- | ----------------------------------- |
-| v2/pallycon |            |                                     |
+| pallycon    |            |                                     |
 |             | /config    | configuration module for policy     |
 |             | /exception | exception package                   |
 |             | /sample    | make token sample @`client_test.py` |
@@ -48,9 +77,14 @@ see other Libraries installed in this project : `requirements.txt`
 
 <br>
 
+
+## Guide
+Go to [PallyCon Docs for Policy Json Specification](https://pallycon.com/docs/en/multidrm/license/license-token/#license-policy-json)
+and figure out which specification to use.
+
 ### How to get token
 
-0. make **quick** token : go to `pallycon/sample/amke_token.py`and run this module
+0. make **quick** token : go to `pallycon/sample/amke_token.py` and run this module
 
 1. Before get token, you need to set up `policy`.
 
@@ -70,8 +104,6 @@ see other Libraries installed in this project : `requirements.txt`
            .external(external)
    ```
 
-   
-
 2. As you can see above, you need to decide whether to set `playback`, `security`, or `external`.
 
    If you want to set up all policies, 
@@ -88,31 +120,30 @@ see other Libraries installed in this project : `requirements.txt`
    
    def set_playback_policy():
        playback \
-           .expire_date('2020-11-15T11:11:30Z') \
            .allowed_track_types(allowed_track_types.SD_ONLY) \
-           .persistent(True)
+           .persistent(False)
            
    def set_security_policy():
        security.track_type(track_type.ALL) \
-           .widevine(Widevine()
-                     .security_level(2)
-                     .required_hdcp_version('HDCP_V2')
-                     .required_cgms_flags('COPY_ONCE')
-                     .hdcp_srm_rule('HDCP_SRM_RULE_NONE')) \
-           .playready(Playready()
-                      .security_level(2000)
-                      .digital_video_protection_level(270)
-                      .analog_video_protection_level(100)
-                      .digital_audio_protection_level(301)
-                      .require_hdcp_type_1(True)) \
-           .fairplay(Fairplay()
-                     .hdcp_enforcement(0)
-                     .allow_airplay(False)
-                     .allow_av_adapter(True)) \
-           .ncg(Ncg()
-                .allow_mobile_abnormal_device(False)
-                .allow_external_display(True)
-                .control_hdcp(2))
+            .widevine(Widevine()
+                      .security_level(1)
+                      .required_hdcp_version('HDCP_NONE')
+                      .required_cgms_flags('CGMS_NONE')
+                      .override_device_revocation(False)) \
+            .playready(Playready()
+                       .security_level(150)
+                       .digital_video_protection_level(100)
+                       .analog_video_protection_level(100)
+                       .digital_audio_protection_level(100)
+                       ) \
+            .fairplay(Fairplay()
+                      .hdcp_enforcement(-1)
+                      .allow_airplay(True)
+                      .allow_av_adapter(True)) \
+            .ncg(Ncg()
+                 .allow_mobile_abnormal_device(False)
+                 .allow_external_display(True)
+                 .control_hdcp(0))
    
    def set_external_key():
        """
@@ -150,9 +181,7 @@ see other Libraries installed in this project : `requirements.txt`
            .ncg(Ncg(track_type.ALL_VIDEO,
                     '<cek>'))
    ```
-   
 
-   
 3. Import `PallyConDrmTokenClient` from `pallycon_drm_token_client.py`
 
    ```python
@@ -172,8 +201,6 @@ see other Libraries installed in this project : `requirements.txt`
        
        token.execute()
    ```
-
-
 
 4. Make encrypted token !
 
@@ -270,6 +297,7 @@ We hope this instruction would be helpful to generate DRM License Token to reque
 | 1048       | Token err : The response_format should be in type of RESPONSE_FORMAT<br />in `pallycon.config.response_format` module |
 | 1049       | PlaybackPolicy : The rental_duration should be Integer |
 | 1050       | PlaybackPolicy : The playback_duration should be Integer |
+| 1051       | SecurityPolicyWidevine: The override_device_revocation should be Boolean |
 
 
 

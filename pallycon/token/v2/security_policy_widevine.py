@@ -1,5 +1,6 @@
 from pallycon.exception.pallycon_token_exception import PallyConTokenException
 
+
 class SecurityPolicyWidevine:
     def __init__(self):
         self.__widevine_security_level = None
@@ -7,9 +8,10 @@ class SecurityPolicyWidevine:
         self.__widevine_required_cgms_flags = None
         self.__widevine_disable_analog_output = None
         self.__widevine_hdcp_srm_rule = None
-
+        self.__widevine_override_device_revocation = None
 
     """ setter """
+
     def security_level(self, security_level: int):
         from pallycon.config.widevine.security_level import check
         if check(security_level):
@@ -49,8 +51,15 @@ class SecurityPolicyWidevine:
             raise PallyConTokenException('1026')
         return self
 
+    def override_device_revocation(self, override_device_revocation: bool):
+        if isinstance(override_device_revocation, int):
+            self.__widevine_override_device_revocation = override_device_revocation
+        else:
+            raise PallyConTokenException('1051')
+        return self
 
     """ getter """
+
     def get_security_level(self) -> int:
         return self.__widevine_security_level
 
@@ -81,4 +90,3 @@ class SecurityPolicyWidevine:
             widevine['hdcp_srm_rule'] = self.__widevine_hdcp_srm_rule
 
         return widevine
-

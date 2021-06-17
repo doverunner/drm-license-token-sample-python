@@ -77,7 +77,8 @@ error_list = [
     ('1048', 'Token err : The response_format should be in type of RESPONSE_FORMAT '
              'in [pallycon.config.response_format] module'),
     ('1049', 'PlaybackPolicy : The rental_duration should be Integer'),
-    ('1050', 'PlaybackPolicy : The playback_duration should be Integer')
+    ('1050', 'PlaybackPolicy : The playback_duration should be Integer'),
+    ('1051', 'SecurityPolicyWidevine: The override_device_revocation should be Boolean')
 
 ]
 error_dict = dict(error_list)
