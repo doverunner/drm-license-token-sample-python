@@ -84,7 +84,7 @@ and figure out which specification to use.
 
 ### How to get token
 
-0. make **quick** token : go to `pallycon/sample/amke_token.py` and run this module
+0. make **quick** token : go to `pallycon/sample/make_token.py` and run this module
 
 1. Before get token, you need to set up `policy`.
 
@@ -246,19 +246,19 @@ We hope this instruction would be helpful to generate DRM License Token to reque
 
 ### Error Messages
 
-| Error Code | Error Messages                                               |
-| ---------- | ------------------------------------------------------------ |
-| 1000       | Token err : The userId is Required                           |
-| 1001       | Token err : The cId is Required                              |
-| 1002       | Token err : The siteId is Required                           |
-| 1003       | Token err : The accessKey is Required                        |
-| 1004       | Token err : The siteKey is Required                          |
-| 1005       | Token err : The policy is Required                           |
+| Error Code | Error Messages                                             |
+|------------| ---------------------------------------------------------- |
+| 1000       | Token err : The userId is Required                         |
+| 1001       | Token err : The cId is Required                            |
+| 1002       | Token err : The siteId is Required                         |
+| 1003       | Token err : The accessKey is Required                      |
+| 1004       | Token err : The siteKey is Required                        |
+| 1005       | Token err : The policy is Required                         |
 | 1006       | Policy Err : The playback_policy should be an instance of PlaybackPolicy |
 | 1007       | Policy Err : The security_policy should be an instance of SecurityPolicy or List[SecurityPolicy] |
 | 1008       | Policy Err : The external_key should be an instance of ExternalKey |
-| 1009       | PlaybackPolicy : The persistent should be Boolean            |
-| 1010       | PlaybackPolicy : The license_duration should be Integer      |
+| 1009       | PlaybackPolicy : The persistent should be Boolean          |
+| 1010       | PlaybackPolicy : The license_duration should be Integer    |
 | 1011       | PlaybackPolicy : The expireDate time format should be \'YYYY-MM-DD\'T\'HH:mm:ss\'Z\' |
 | 1012       | PlaybackPolicy : The allowed_track_types value should be in allowed_track_types module |
 | 1013       | SecurityPolicy: The track_type should be in type of  TRACK_TYPE<br />in `pallycon.config.track_type` module |
@@ -266,10 +266,10 @@ We hope this instruction would be helpful to generate DRM License Token to reque
 | 1015       | SecurityPolicy: The playready should be an instance of SecurityPolicyPlayready |
 | 1016       | SecurityPolicy: The fairplay should be an instance of SecurityPolicyFairplay |
 | 1017       | SecurityPolicy: The ncg should be an instance of SecurityPolicyNcg |
-| 1018       | ExternalKey: The ExternalKey Should be filled if called      |
+| 1018       | ExternalKey: The ExternalKey Should be filled if called    |
 | 1019       | ExternalKey: The MpegCenc should be an instance of MpegCenc or List[MpegCenc] |
 | 1020       | ExternalKey: The HlsAes should be an instance of HlsAes or List[HlsAes] |
-| 1021       | ExternalKey: The Ncg should be an instance of Ncg            |
+| 1021       | ExternalKey: The Ncg should be an instance of Ncg          |
 | 1022       | SecurityPolicyWidevine: The security_level should be in type of  SECURITY_LEVEL<br />in `pallycon.config.widevine.security_level` module |
 | 1023       | SecurityPolicyWidevine: The required_hdcp_version should be in type of  REQUIRED_HDCP_VERSION<br />in `pallycon.config.widevine.required_hdcp_version` module |
 | 1024       | SecurityPolicyWidevine: The required_cgms_flagsshould be in type of  REQUIRED_CGMS_FLAGS<br />in `pallycon.config.widevine.required_cgms_flags` module |
@@ -281,20 +281,20 @@ We hope this instruction would be helpful to generate DRM License Token to reque
 | 1030       | SecurityPolicyPlayready: The digital_audio_protection_level should be in type of  DIGITAL_AUDIO_PROTECTION<br />in `pallycon.config.playready.digital_audio_protection` module |
 | 1032       | SecurityPolicyPlayready: The require_hdcp_type_1 should be Boolean |
 | 1033       | SecurityPolicyFairplay: The hdcp_enforcement should be in type of FAIRPLAY_HDCP_ENFORCEMENT<br />in `pallycon.config.fairplay_hdcp_enforcement` module |
-| 1034       | SecurityPolicyFairplay: The allow_airplay should be Boolean  |
+| 1034       | SecurityPolicyFairplay: The allow_airplay should be Boolean |
 | 1035       | SecurityPolicyFairplay: The allow_av_adapter should be Boolean |
 | 1036       | SecurityPolicyNcg: The allow_mobile_abnormal_device should be Boolean |
 | 1037       | SecurityPolicyNcg: The allow_external_display should be Boolean |
 | 1038       | SecurityPolicyNcg: The control_hdcp should be in type of CONTROL_HDCP<br />in `pallycon.config.ncg_control_hdcp` module |
 | 1039       | ExternalKeyMpegCenc: The track_type should be in type of  TRACK_TYPE<br />in `pallycon.config.track_type` module |
 | 1040       | ExternalKeyMpegCenc : The key_id should be 16byte hex String |
-| 1041       | ExternalKeyMpegCenc : The key should be 16byte hex String    |
-| 1042       | ExternalKeyMpegCenc : The iv should be 16byte hex String     |
+| 1041       | ExternalKeyMpegCenc : The key should be 16byte hex String  |
+| 1042       | ExternalKeyMpegCenc : The iv should be 16byte hex String   |
 | 1043       | ExternalKeyHlsAes: The track_type should be in type of  TRACK_TYPE<br />in `pallycon.config.track_type` module |
-| 1044       | ExternalKeyHlsAes : The key should be 16byte hex String      |
-| 1045       | ExternalKeyHlsAes : The iv should be 16byte hex String       |
+| 1044       | ExternalKeyHlsAes : The key should be 16byte hex String    |
+| 1045       | ExternalKeyHlsAes : The iv should be 16byte hex String     |
 | 1046       | ExternalKeyNcg : The track_type should be in type of  TRACK_TYPE<br />in `pallycon.config.track_type` module |
-| 1047       | ExternalKeyNcg : The Cek should be 32byte hex String         |
+| 1047       | ExternalKeyNcg : The Cek should be 32byte hex String       |
 | 1048       | Token err : The response_format should be in type of RESPONSE_FORMAT<br />in `pallycon.config.response_format` module |
 | 1049       | PlaybackPolicy : The rental_duration should be Integer |
 | 1050       | PlaybackPolicy : The playback_duration should be Integer |
@@ -302,6 +302,7 @@ We hope this instruction would be helpful to generate DRM License Token to reque
 | 1052       | ExternalKeyHlsAes : The key_id should be 16byte hex String |
 | 1053       | PlaybackPolicy : The max_stream_per_user should be Integer |
 | 1054       | SecurityPolicyWidevine : The enable_license_cipher should be Boolean |
+| 1055       | Token err : The key_rotation should be Boolean |
 
 
 
