@@ -5,7 +5,7 @@ import hashlib
 from Crypto.Cipher import AES
 import pytz
 import datetime
-from pallycon.exception.pallycon_token_exception import PallyConTokenException
+from doverunner.exception.doverunner_token_exception import DoverunnerTokenException
 
 
 def _pad(words):
@@ -16,7 +16,7 @@ def _pad(words):
     return (words + (BS - len(words) % BS) * chr(BS - len(words) % BS)).encode("utf-8")
 
 
-class PallyConDrmTokenClient:
+class DoverunnerDrmTokenClient:
     def __init__(self):
         self.__drm_type = "PlayReady"
         self.__AES_IV = "0123456789abcdef"
@@ -73,18 +73,18 @@ class PallyConDrmTokenClient:
         return self
 
     def response_format(self, response_format):
-        from pallycon.config.response_format import check
+        from doverunner.config.response_format import check
         if check(response_format):
             self.__response_format = response_format
         else:
-            raise PallyConTokenException('1048')
+            raise DoverunnerTokenException('1048')
         return self
 
     def key_rotation(self, key_rotation):
         if isinstance(key_rotation, bool):
             self.__key_rotation = key_rotation
         else:
-            raise PallyConTokenException('1055')
+            raise DoverunnerTokenException('1055')
         return self
 
     def __timestamp(self):
@@ -123,7 +123,7 @@ class PallyConDrmTokenClient:
 
             return base64.b64encode(payload_str.encode("utf-8")).decode("utf-8")
 
-        except PallyConTokenException:
+        except DoverunnerTokenException:
             raise
 
     """
@@ -153,22 +153,22 @@ class PallyConDrmTokenClient:
 
     def __validation(self):
         if self.__user_id is None:
-            raise PallyConTokenException('1000')
+            raise DoverunnerTokenException('1000')
 
         if self.__cid is None:
-            raise PallyConTokenException('1001')
+            raise DoverunnerTokenException('1001')
 
         if self.__site_id is None:
-            raise PallyConTokenException('1002')
+            raise DoverunnerTokenException('1002')
 
         if self.__access_key is None:
-            raise PallyConTokenException('1003')
+            raise DoverunnerTokenException('1003')
 
         if self.__site_key is None:
-            raise PallyConTokenException('1004')
+            raise DoverunnerTokenException('1004')
 
         if self.__policy is None:
-            raise PallyConTokenException('1005')
+            raise DoverunnerTokenException('1005')
 
     def get_drm_type(self):
         return self.__drm_type

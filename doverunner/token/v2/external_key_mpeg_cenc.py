@@ -1,33 +1,35 @@
-from pallycon.exception.pallycon_token_exception import PallyConTokenException
-from pallycon.config import track_type as hls_aes_track_type
-from pallycon.config.track_type import check
+from doverunner.exception.doverunner_token_exception import DoverunnerTokenException
+from doverunner.config import track_type as mpeg_track_type
+from doverunner.config.track_type import check
 
 
-class ExternalKeyHlsAes:
-    def __init__(self, track_type: hls_aes_track_type = '', key_id: str = '', key: str = '', iv: str = ''):
+class ExternalKeyMpegCenc:
+    def __init__(self, track_type: mpeg_track_type = '', key_id: str = '', key: str = '', iv: str = None):
 
         if isinstance(track_type, str) and check(track_type):
             self.__track_type = track_type
         else:
-            raise PallyConTokenException('1043')
+            raise DoverunnerTokenException('1039')
 
         if isinstance(key_id, str) and _check_hex16(key_id):
             self.__key_id = key_id
         else:
-            raise PallyConTokenException('1052')
+            raise DoverunnerTokenException('1040')
 
         if isinstance(key, str) and _check_hex16(key):
             self.__key = key
         else:
-            raise PallyConTokenException('1044')
+            raise DoverunnerTokenException('1041')
 
         if isinstance(iv, str) and _check_hex16(iv):
             self.__iv = iv
+        elif iv is None:
+            self.__iv = None
         else:
-            raise PallyConTokenException('1045')
+            raise DoverunnerTokenException('1042')
 
     @property
-    def track_type(self) -> hls_aes_track_type:
+    def track_type(self) -> mpeg_track_type:
         return self.__track_type
 
     @property
@@ -43,13 +45,14 @@ class ExternalKeyHlsAes:
         return self.__iv
 
     def dict(self):
-        hls_aes = {
+        mpeg_cenc = {
             'track_type': self.__track_type,
             'key_id': self.__key_id,
-            'key': self.__key,
-            'iv': self.__iv
+            'key': self.__key
         }
-        return hls_aes
+        if hasattr(self, '_ExternalKeyMpegCenc__iv'):
+            mpeg_cenc['iv'] = self.__iv
+        return mpeg_cenc
 
 
 def _check_hex16(words) -> bool:
@@ -61,3 +64,5 @@ def _check_hex16(words) -> bool:
     else:
         pattern = True
     return pattern
+
+

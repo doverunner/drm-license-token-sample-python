@@ -1,8 +1,8 @@
-from pallycon.exception.pallycon_token_exception import PallyConTokenException
-from pallycon.token.v2.security_policy_widevine import SecurityPolicyWidevine
-from pallycon.token.v2.security_policy_playready import SecurityPolicyPlayready
-from pallycon.token.v2.security_policy_fairplay import SecurityPolicyFairplay
-from pallycon.token.v2.security_policy_ncg import SecurityPolicyNcg
+from doverunner.exception.doverunner_token_exception import DoverunnerTokenException
+from doverunner.token.v2.security_policy_widevine import SecurityPolicyWidevine
+from doverunner.token.v2.security_policy_playready import SecurityPolicyPlayready
+from doverunner.token.v2.security_policy_fairplay import SecurityPolicyFairplay
+from doverunner.token.v2.security_policy_ncg import SecurityPolicyNcg
 
 
 
@@ -16,39 +16,39 @@ class SecurityPolicy:
 
     """ setter """
     def track_type(self, track_type: str):
-        from pallycon.config.track_type import check
+        from doverunner.config.track_type import check
         if isinstance(track_type, str) and check(track_type):
             self.__security_track_type = track_type
         else:
-            raise PallyConTokenException('1013')
+            raise DoverunnerTokenException('1013')
         return self
 
     def widevine(self, widevine: SecurityPolicyWidevine):
         if isinstance(widevine, SecurityPolicyWidevine):
             self.__security_widevine = widevine.dict()
         else:
-            raise PallyConTokenException('1014')
+            raise DoverunnerTokenException('1014')
         return self
 
     def playready(self, playready: SecurityPolicyPlayready):
         if isinstance(playready, SecurityPolicyPlayready):
             self.__security_playready = playready.dict()
         else:
-            raise PallyConTokenException('1015')
+            raise DoverunnerTokenException('1015')
         return self
 
     def fairplay(self, fairplay: SecurityPolicyFairplay):
         if isinstance(fairplay, SecurityPolicyFairplay):
             self.__security_fairplay = fairplay.dict()
         else:
-            raise PallyConTokenException('1016')
+            raise DoverunnerTokenException('1016')
         return self
 
     def ncg(self, ncg: SecurityPolicyNcg):
         if isinstance(ncg, SecurityPolicyNcg):
             self.__security_ncg = ncg.dict()
         else:
-            raise PallyConTokenException('1017')
+            raise DoverunnerTokenException('1017')
         return self
 
     """ getter """

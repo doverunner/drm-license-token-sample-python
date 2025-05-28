@@ -1,4 +1,4 @@
-from pallycon.exception.pallycon_token_exception import PallyConTokenException
+from doverunner.exception.doverunner_token_exception import DoverunnerTokenException
 
 class SecurityPolicyNcg:
 
@@ -12,22 +12,22 @@ class SecurityPolicyNcg:
         if isinstance(allow_mobile_abnormal_device, bool):
             self.__ncg_allow_mobile_abnormal_device = allow_mobile_abnormal_device
         else:
-            raise PallyConTokenException('1036')
+            raise DoverunnerTokenException('1036')
         return self
 
     def allow_external_display(self, allow_external_display: bool):
         if isinstance(allow_external_display, bool):
             self.__ncg_allow_external_display = allow_external_display
         else:
-            raise PallyConTokenException('1037')
+            raise DoverunnerTokenException('1037')
         return self
 
     def control_hdcp(self, control_hdcp: int):
-        from pallycon.config.ncg_control_hdcp import check
+        from doverunner.config.ncg_control_hdcp import check
         if check(control_hdcp):
             self.__ncg_control_hdcp = control_hdcp
         else:
-            raise PallyConTokenException('1038')
+            raise DoverunnerTokenException('1038')
         return self
 
     """ getter """

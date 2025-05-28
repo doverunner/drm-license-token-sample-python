@@ -1,4 +1,4 @@
-from pallycon.exception.pallycon_token_exception import PallyConTokenException
+from doverunner.exception.doverunner_token_exception import DoverunnerTokenException
 
 class SecurityPolicyFairplay:
     def __init__(self):
@@ -9,25 +9,25 @@ class SecurityPolicyFairplay:
 
     """ setter """
     def hdcp_enforcement(self, hdcp_enforcement: int):
-        from pallycon.config.fairplay_hdcp_enforcement import check
+        from doverunner.config.fairplay_hdcp_enforcement import check
         if check(hdcp_enforcement):
             self.__fairplay_hdcp_enforcement = hdcp_enforcement
         else:
-            raise PallyConTokenException('1033')
+            raise DoverunnerTokenException('1033')
         return self
 
     def allow_airplay(self, allow_airplay: bool):
         if isinstance(allow_airplay, bool):
             self.__fairplay_allow_airplay = allow_airplay
         else:
-            raise PallyConTokenException('1034')
+            raise DoverunnerTokenException('1034')
         return self
 
     def allow_av_adapter(self, allow_av_adapter: bool):
         if isinstance(allow_av_adapter, bool):
             self.__fairplay_allow_av_adapter = allow_av_adapter
         else:
-            raise PallyConTokenException('1035')
+            raise DoverunnerTokenException('1035')
         return self
 
     """ getter """

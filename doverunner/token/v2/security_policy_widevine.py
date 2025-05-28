@@ -1,4 +1,4 @@
-from pallycon.exception.pallycon_token_exception import PallyConTokenException
+from doverunner.exception.doverunner_token_exception import DoverunnerTokenException
 
 
 class SecurityPolicyWidevine:
@@ -14,56 +14,56 @@ class SecurityPolicyWidevine:
     """ setter """
 
     def security_level(self, security_level: int):
-        from pallycon.config.widevine.security_level import check
+        from doverunner.config.widevine.security_level import check
         if check(security_level):
             self.__widevine_security_level = security_level
         else:
-            raise PallyConTokenException('1022')
+            raise DoverunnerTokenException('1022')
         return self
 
     def required_hdcp_version(self, required_hdcp_version: str):
-        from pallycon.config.widevine.required_hdcp_version import check
+        from doverunner.config.widevine.required_hdcp_version import check
         if check(required_hdcp_version):
             self.__widevine_required_hdcp_version = required_hdcp_version
         else:
-            raise PallyConTokenException('1023')
+            raise DoverunnerTokenException('1023')
         return self
 
     def required_cgms_flags(self, required_cgms_flags: str):
-        from pallycon.config.widevine.required_cgms_flags import check
+        from doverunner.config.widevine.required_cgms_flags import check
         if check(required_cgms_flags):
             self.__widevine_required_cgms_flags = required_cgms_flags
         else:
-            raise PallyConTokenException('1024')
+            raise DoverunnerTokenException('1024')
         return self
 
     def disable_analog_output(self, disable_analog_output: bool):
         if isinstance(disable_analog_output, bool):
             self.__widevine_disable_analog_output = disable_analog_output
         else:
-            raise PallyConTokenException('1025')
+            raise DoverunnerTokenException('1025')
         return self
 
     def hdcp_srm_rule(self, hdcp_srm_rule: str):
-        from pallycon.config.widevine.hdcp_srm_rule import check
+        from doverunner.config.widevine.hdcp_srm_rule import check
         if check(hdcp_srm_rule):
             self.__widevine_hdcp_srm_rule = hdcp_srm_rule
         else:
-            raise PallyConTokenException('1026')
+            raise DoverunnerTokenException('1026')
         return self
 
     def override_device_revocation(self, override_device_revocation: bool):
         if isinstance(override_device_revocation, bool):
             self.__widevine_override_device_revocation = override_device_revocation
         else:
-            raise PallyConTokenException('1051')
+            raise DoverunnerTokenException('1051')
         return self
 
     def enable_license_cipher(self, enable_license_cipher: bool):
         if isinstance(enable_license_cipher, bool):
             self.__widevine_enable_license_cipher = enable_license_cipher
         else:
-            raise PallyConTokenException('1054')
+            raise DoverunnerTokenException('1054')
         return self
 
     """ getter """
