@@ -12,14 +12,14 @@
 
 This works on `PYTHON` version : 
 
-- 3.7.10 and greater
+- 3.13.3 and greater
 
 <br>
 
 ### IDE
 
 - PyCharm
-- Anaconda 4.8.2
+- conda 24.9.2
 
 <br>
 
@@ -29,38 +29,42 @@ For Anaconda users, create a virtual environment using `environment.yml` file an
 
 `environment.yml` file :     
 ```text
-name: drm_token {{or, set environment name}}
+name: drm_test or other name you want
 channels:
+  - conda-forge
   - defaults
 dependencies:
-  - ca-certificates=2021.5.25
-  - certifi=2021.5.30
-  - openssl=1.1.1k
-  - pip=21.1.2
-  - pycrypto=2.6.1
-  - python=3.7.10
-  - pytz=2021.1
-  - setuptools=52.0.0
-  - sqlite=3.35.4
-  - vc=14.2
-  - vs2015_runtime=14.27.29016
-  - wheel=0.36.2
-  - wincertstore=0.2
-prefix: {{set anaconda env directory}}
+
+  - python=3.13.3
+
+  # 도구들(pip, wheel)은 별도 버전 고정 없이 최신 호환 빌드 사용
+  # Use the latest compatible builds of tools like pip and wheel without fixing versions
+  - pip
+  - wheel
+
+  # Certificate 패키지는 arm64에 여러 빌드가 있으므로 버전 고정 해제
+  # Unpin certificate-related packages since multiple builds exist for arm64
+  - ca-certificates
+  - certifi
+
+  # OpenSSL은 1.1.1k 이상 빌드가 있으므로 최소 요구조건만 명시
+  # Specify minimum required version for OpenSSL (1.1.1k or higher available)
+  - openssl>=1.1.1k
+
+  # pycrypto는 arm64에서 빌드가 제공되지 않으므로 pycryptodome으로 교체
+  # Replace pycrypto with pycryptodome as pycrypto is unavailable on arm64
+  - pycryptodome
+
+  - pytz
+  - setuptools
+  - sqlite
+
+prefix: {{ conda_prefix }}
 ``` 
 
 command : 
 ```shell script
 conda env create -f environment.yml
-```
-<br>
-
-For other environments users, install packages using `requirements.txt`.   
-```text
-certifi==2021.5.30
-pycrypto==2.6.1
-pytz==2021.1
-wincertstore==0.2
 ```
 
 <br><br>
