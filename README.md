@@ -12,7 +12,7 @@
 
 This works on `PYTHON` version : 
 
-- 3.13.3 and greater
+- 3.13.* and greater
 
 <br>
 
@@ -29,13 +29,15 @@ For Anaconda users, create a virtual environment using `environment.yml` file an
 
 `environment.yml` file :     
 ```text
+# Cross-Platform Conda Environment for ARM64 & x86_64
+# ARM64(Apple Silicon)과 x86_64(Linux/macOS Intel) 양쪽에서 호환되는 환경
 name: drm_test or other name you want
 channels:
   - conda-forge
   - defaults
 dependencies:
 
-  - python=3.13.3
+  - python=3.13.*
 
   # 도구들(pip, wheel)은 별도 버전 고정 없이 최신 호환 빌드 사용
   # Use the latest compatible builds of tools like pip and wheel without fixing versions
