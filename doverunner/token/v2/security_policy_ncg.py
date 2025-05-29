@@ -23,7 +23,7 @@ class SecurityPolicyNcg:
         return self
 
     def control_hdcp(self, control_hdcp: int):
-        from doverunner.config.ncg_control_hdcp import check
+        from doverunner.config.ncg.ncg_control_hdcp import check
         if check(control_hdcp):
             self.__ncg_control_hdcp = control_hdcp
         else:

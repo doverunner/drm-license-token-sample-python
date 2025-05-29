@@ -83,6 +83,14 @@ error_list = [
     ('1053', 'PlaybackPolicy : The max_stream_per_user should be Integer'),
     ('1054', 'SecurityPolicyWidevine : The enable_license_cipher should be Boolean'),
     ('1055', 'Token err : The key_rotation should be Boolean'),
+    {'1056', 'PlaybackPolicy : The renewal_duration should be Integer or String'},
+    {'1057', 'SecurityPolicy : The wiseplay should be an instance of SecurityPolicyWiseplay'},
+    ('1058', 'SecurityPolicyPlayready: The enable_license_cipher should be Boolean'),
+    ('1059', 'SecurityPolicyWidevine: The allow_test_device should be Boolean'),
+
+    ('1060', 'SecurityPolicyWiseplay: The security_level should be Integer'),
+    ('1061', 'SecurityPolicyWiseplay: The output_control should be Integer'),
+    {'1062', 'SecurityPolicy : The ncg should be an instance of SecurityPolicyNcg'},
 ]
 error_dict = dict(error_list)
 

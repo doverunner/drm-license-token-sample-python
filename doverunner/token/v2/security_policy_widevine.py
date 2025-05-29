@@ -10,6 +10,7 @@ class SecurityPolicyWidevine:
         self.__widevine_hdcp_srm_rule = None
         self.__widevine_override_device_revocation = None
         self.__widevine_enable_license_cipher = None
+        self.__widevine_allow_test_device = None
 
     """ setter """
 
@@ -66,6 +67,13 @@ class SecurityPolicyWidevine:
             raise DoverunnerTokenException('1054')
         return self
 
+    def allow_test_device(self, allow_test_device: bool):
+        if isinstance(allow_test_device, bool):
+            self.__widevine_allow_test_device = allow_test_device
+        else:
+            raise DoverunnerTokenException('1059')
+        return self
+
     """ getter """
 
     def get_security_level(self) -> int:
@@ -83,8 +91,14 @@ class SecurityPolicyWidevine:
     def get_hdcp_srm_rule(self) -> str:
         return self.__widevine_hdcp_srm_rule
 
+    def get_override_device_revocation(self) -> bool:
+        return self.__widevine_override_device_revocation
+
     def get_enable_license_cipher(self) -> bool:
         return self.__widevine_enable_license_cipher
+
+    def get_allow_test_device(self) -> bool:
+        return self.__widevine_allow_test_device
 
     def dict(self):
         widevine = {}
@@ -99,7 +113,11 @@ class SecurityPolicyWidevine:
             widevine['disable_analog_output'] = self.__widevine_disable_analog_output
         if self.__widevine_hdcp_srm_rule is not None:
             widevine['hdcp_srm_rule'] = self.__widevine_hdcp_srm_rule
+        if self.__widevine_override_device_revocation is not None:
+            widevine['override_device_revocation'] = self.__widevine_override_device_revocation
         if self.__widevine_enable_license_cipher is not None:
             widevine['enable_license_cipher'] = self.__widevine_enable_license_cipher
+        if self.__widevine_allow_test_device is not None:
+            widevine['allow_test_device'] = self.__widevine_allow_test_device
 
         return widevine

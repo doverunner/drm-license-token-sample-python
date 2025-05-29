@@ -11,6 +11,7 @@ class PlaybackPolicy:
         self.__policy_rental_duration = None
         self.__policy_playback_duration = None
         self.__policy_max_stream_per_user = None
+        self.__policy_renewal_duration = None
 
     def persistent(self, persistent: bool):
         if isinstance(persistent, bool):
@@ -34,7 +35,7 @@ class PlaybackPolicy:
         return self
 
     def allowed_track_types(self, allowed_track_types: str):
-        from doverunner.config.allowed_track_types import check
+        from doverunner.config.playback.allowed_track_types import check
         if isinstance(allowed_track_types, str) and check(allowed_track_types):
             self.__policy_allowed_track_types = allowed_track_types
         else:
@@ -62,6 +63,13 @@ class PlaybackPolicy:
             raise DoverunnerTokenException('1053')
         return self
 
+    def renewal_duration(self, renewal_duration):
+        if (isinstance(renewal_duration, int) or isinstance(renewal_duration, str)) and not isinstance(renewal_duration, bool):
+            self.__policy_renewal_duration = renewal_duration
+        else:
+            raise DoverunnerTokenException('1056')
+        return self
+
     """ getter of persistent, license_duration, expire_date and allowed_track_types """
     def get_persistent(self) -> bool:
         return self.__policy_persistent
@@ -84,6 +92,9 @@ class PlaybackPolicy:
     def get_max_stream_per_user(self) -> int:
         return self.__policy_max_stream_per_user
 
+    def get_renewal_duration(self) -> int:
+        return self.__policy_renewal_duration
+
     def dict(self):
         playback_policy = {}
 
@@ -101,6 +112,8 @@ class PlaybackPolicy:
             playback_policy['playback_duration'] = self.__policy_playback_duration
         if self.__policy_max_stream_per_user is not None:
             playback_policy['max_stream_per_user'] = self.__policy_max_stream_per_user
+        if self.__policy_renewal_duration is not None:
+            playback_policy['renewal_duration'] = self.__policy_renewal_duration
 
         return playback_policy
 

@@ -3,7 +3,7 @@ from doverunner.token.v2.security_policy_widevine import SecurityPolicyWidevine
 from doverunner.token.v2.security_policy_playready import SecurityPolicyPlayready
 from doverunner.token.v2.security_policy_fairplay import SecurityPolicyFairplay
 from doverunner.token.v2.security_policy_ncg import SecurityPolicyNcg
-
+from doverunner.token.v2.security_policy_wiseplay import SecurityPolicyWiseplay
 
 
 class SecurityPolicy:
@@ -13,10 +13,11 @@ class SecurityPolicy:
         self.__security_playready = None
         self.__security_fairplay = None
         self.__security_ncg = None
+        self.__security_wiseplay = None
 
     """ setter """
     def track_type(self, track_type: str):
-        from doverunner.config.track_type import check
+        from doverunner.config.common.track_type import check
         if isinstance(track_type, str) and check(track_type):
             self.__security_track_type = track_type
         else:
@@ -48,7 +49,14 @@ class SecurityPolicy:
         if isinstance(ncg, SecurityPolicyNcg):
             self.__security_ncg = ncg.dict()
         else:
-            raise DoverunnerTokenException('1017')
+            raise DoverunnerTokenException('1062')
+        return self
+
+    def wiseplay(self, wiseplay: SecurityPolicyWiseplay):
+        if isinstance(wiseplay, SecurityPolicyWiseplay):
+            self.__security_wiseplay = wiseplay.dict()
+        else:
+            raise DoverunnerTokenException('1057')
         return self
 
     """ getter """
@@ -64,6 +72,9 @@ class SecurityPolicy:
     def get_ncg(self) -> dict:
         return self.__security_ncg
 
+    def get_wiseplay(self) -> dict:
+        return self.__security_wiseplay
+
     def dict(self) -> dict:
         security_policy = {
             'track_type': self.__security_track_type
@@ -76,8 +87,7 @@ class SecurityPolicy:
             security_policy['fairplay'] = self.__security_fairplay
         if self.__security_ncg is not None:
             security_policy['ncg'] = self.__security_ncg
+        if self.__security_wiseplay is not None:
+            security_policy['wiseplay'] = self.__security_wiseplay
 
         return security_policy
-
-
-

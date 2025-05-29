@@ -1,6 +1,6 @@
 from doverunner.exception.doverunner_token_exception import DoverunnerTokenException
-from doverunner.config import track_type as ncg_track_type
-from doverunner.config.track_type import check
+from doverunner.config.common import track_type as ncg_track_type
+from doverunner.config.common.track_type import check
 
 
 class ExternalKeyNcg:

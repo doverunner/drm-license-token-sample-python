@@ -73,7 +73,7 @@ class DoverunnerDrmTokenClient:
         return self
 
     def response_format(self, response_format):
-        from doverunner.config.response_format import check
+        from doverunner.config.common.response_format import check
         if check(response_format):
             self.__response_format = response_format
         else:

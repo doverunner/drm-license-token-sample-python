@@ -7,7 +7,7 @@ class SecurityPolicyPlayready:
         self.__playready_analog_video_protection = None
         self.__playready_digital_audio_protection = None
         self.__playready_require_hdcp_type_1 = None
-
+        self.__playready_enable_license_cipher = None
 
     """ setter """
     def security_level(self, security_level: int):
@@ -49,6 +49,12 @@ class SecurityPolicyPlayready:
             raise DoverunnerTokenException('1032')
         return self
 
+    def enable_license_cipher(self, enable_license_cipher: bool):
+        if isinstance(enable_license_cipher, bool):
+            self.__playready_enable_license_cipher = enable_license_cipher
+        else:
+            raise DoverunnerTokenException('1058')
+        return self
 
     """ getter """
     def get_security_level(self) -> int:
@@ -66,6 +72,9 @@ class SecurityPolicyPlayready:
     def get_require_hdcp_type_1(self) -> bool:
         return self.__playready_require_hdcp_type_1
 
+    def get_enable_license_cipher(self) -> bool:
+        return self.__playready_enable_license_cipher
+
     def dict(self):
         playready = {}
 
@@ -79,5 +88,6 @@ class SecurityPolicyPlayready:
             playready['digital_audio_protection_level'] = self.__playready_digital_audio_protection
         if self.__playready_require_hdcp_type_1 is not None:
             playready['require_hdcp_type_1'] = self.__playready_require_hdcp_type_1
-
+        if self.__playready_enable_license_cipher is not None:
+            playready['enable_license_cipher'] = self.__playready_enable_license_cipher
         return playready

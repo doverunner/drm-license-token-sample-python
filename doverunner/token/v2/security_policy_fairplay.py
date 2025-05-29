@@ -9,7 +9,7 @@ class SecurityPolicyFairplay:
 
     """ setter """
     def hdcp_enforcement(self, hdcp_enforcement: int):
-        from doverunner.config.fairplay_hdcp_enforcement import check
+        from doverunner.config.fairplay.fairplay_hdcp_enforcement import check
         if check(hdcp_enforcement):
             self.__fairplay_hdcp_enforcement = hdcp_enforcement
         else:
