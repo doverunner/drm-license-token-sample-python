@@ -1,4 +1,4 @@
-from pallycon.exception.pallycon_token_exception import PallyConTokenException
+from doverunner.exception.doverunner_token_exception import DoverunnerTokenException
 import re
 
 
@@ -11,55 +11,63 @@ class PlaybackPolicy:
         self.__policy_rental_duration = None
         self.__policy_playback_duration = None
         self.__policy_max_stream_per_user = None
+        self.__policy_renewal_duration = None
 
     def persistent(self, persistent: bool):
         if isinstance(persistent, bool):
             self.__policy_persistent = persistent
         else:
-            raise PallyConTokenException('1009')
+            raise DoverunnerTokenException('1009')
         return self
 
     def license_duration(self, license_duration: int):
         if isinstance(license_duration, int) and not isinstance(license_duration, bool):
             self.__policy_license_duration = license_duration
         else:
-            raise PallyConTokenException('1010')
+            raise DoverunnerTokenException('1010')
         return self
 
     def expire_date(self, expire_date: str):
         if isinstance(expire_date, str) and _check_dates(expire_date):
             self.__policy_expire_date = expire_date
         else:
-            raise PallyConTokenException('1011')
+            raise DoverunnerTokenException('1011')
         return self
 
     def allowed_track_types(self, allowed_track_types: str):
-        from pallycon.config.allowed_track_types import check
+        from doverunner.config.playback.allowed_track_types import check
         if isinstance(allowed_track_types, str) and check(allowed_track_types):
             self.__policy_allowed_track_types = allowed_track_types
         else:
-            raise PallyConTokenException('1012')
+            raise DoverunnerTokenException('1012')
         return self
 
     def rental_duration(self, rental_duration: int):
         if isinstance(rental_duration, int) and not isinstance(rental_duration, bool):
             self.__policy_rental_duration = rental_duration
         else:
-            raise PallyConTokenException('1049')
+            raise DoverunnerTokenException('1049')
         return self
 
     def playback_duration(self, playback_duration: int):
         if isinstance(playback_duration, int) and not isinstance(playback_duration, bool):
             self.__policy_playback_duration = playback_duration
         else:
-            raise PallyConTokenException('1050')
+            raise DoverunnerTokenException('1050')
         return self
 
     def max_stream_per_user(self, max_stream_per_user: int):
         if isinstance(max_stream_per_user, int) and not isinstance(max_stream_per_user, bool):
             self.__policy_max_stream_per_user = max_stream_per_user
         else:
-            raise PallyConTokenException('1053')
+            raise DoverunnerTokenException('1053')
+        return self
+
+    def renewal_duration(self, renewal_duration):
+        if (isinstance(renewal_duration, int) or isinstance(renewal_duration, str)) and not isinstance(renewal_duration, bool):
+            self.__policy_renewal_duration = renewal_duration
+        else:
+            raise DoverunnerTokenException('1056')
         return self
 
     """ getter of persistent, license_duration, expire_date and allowed_track_types """
@@ -84,6 +92,9 @@ class PlaybackPolicy:
     def get_max_stream_per_user(self) -> int:
         return self.__policy_max_stream_per_user
 
+    def get_renewal_duration(self) -> int:
+        return self.__policy_renewal_duration
+
     def dict(self):
         playback_policy = {}
 
@@ -101,6 +112,8 @@ class PlaybackPolicy:
             playback_policy['playback_duration'] = self.__policy_playback_duration
         if self.__policy_max_stream_per_user is not None:
             playback_policy['max_stream_per_user'] = self.__policy_max_stream_per_user
+        if self.__policy_renewal_duration is not None:
+            playback_policy['renewal_duration'] = self.__policy_renewal_duration
 
         return playback_policy
 

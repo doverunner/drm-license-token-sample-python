@@ -1,13 +1,13 @@
 import json
 from typing import Union, List
-from ..exception.pallycon_token_exception import PallyConTokenException
+from ..exception.doverunner_token_exception import DoverunnerTokenException
 
-from pallycon.token.v2.playback_policy import PlaybackPolicy
-from pallycon.token.v2.security_policy import SecurityPolicy
-from pallycon.token.v2.external_key import ExternalKey
+from doverunner.token.v2.playback_policy import PlaybackPolicy
+from doverunner.token.v2.security_policy import SecurityPolicy
+from doverunner.token.v2.external_key import ExternalKey
 
 
-class PallyConDrmTokenPolicy:
+class DoverunnerDrmTokenPolicy:
     def __init__(self):
         self.__policy_version = 2
         self.__policy_playback = None
@@ -19,7 +19,7 @@ class PallyConDrmTokenPolicy:
         if isinstance(playback, PlaybackPolicy):
             self.__policy_playback = playback.dict()
         else:
-            raise PallyConTokenException('1006')
+            raise DoverunnerTokenException('1006')
         return self
 
 
@@ -37,16 +37,16 @@ class PallyConDrmTokenPolicy:
         elif isinstance(security, SecurityPolicy):
             self.__policy_security.append(security.dict())
         else:
-            raise PallyConTokenException('1007')
+            raise DoverunnerTokenException('1007')
         return self
 
     def external(self, external: ExternalKey):
         if isinstance(external, ExternalKey) and external.check():
             self.__policy_external = external.dict()
         elif isinstance(external, ExternalKey) and not external.check():
-            raise PallyConTokenException('1018')  # if the external_key is empty even if it called
+            raise DoverunnerTokenException('1018')  # if the external_key is empty even if it called
         else:
-            raise PallyConTokenException('1008')
+            raise DoverunnerTokenException('1008')
         return self
 
 
