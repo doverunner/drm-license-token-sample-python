@@ -1,6 +1,6 @@
-from pallycon.exception.pallycon_token_exception import PallyConTokenException
-from pallycon.config import track_type as mpeg_track_type
-from pallycon.config.track_type import check
+from doverunner.exception.doverunner_token_exception import DoverunnerTokenException
+from doverunner.config.common import track_type as mpeg_track_type
+from doverunner.config.common.track_type import check
 
 
 class ExternalKeyMpegCenc:
@@ -9,24 +9,24 @@ class ExternalKeyMpegCenc:
         if isinstance(track_type, str) and check(track_type):
             self.__track_type = track_type
         else:
-            raise PallyConTokenException('1039')
+            raise DoverunnerTokenException('1039')
 
         if isinstance(key_id, str) and _check_hex16(key_id):
             self.__key_id = key_id
         else:
-            raise PallyConTokenException('1040')
+            raise DoverunnerTokenException('1040')
 
         if isinstance(key, str) and _check_hex16(key):
             self.__key = key
         else:
-            raise PallyConTokenException('1041')
+            raise DoverunnerTokenException('1041')
 
         if isinstance(iv, str) and _check_hex16(iv):
             self.__iv = iv
         elif iv is None:
             self.__iv = None
         else:
-            raise PallyConTokenException('1042')
+            raise DoverunnerTokenException('1042')
 
     @property
     def track_type(self) -> mpeg_track_type:
