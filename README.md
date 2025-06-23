@@ -1,4 +1,4 @@
-# Drm-token-Sample-PYTHON (v3.0)
+# Drm-Token-Sample-PYTHON (v3.0)
 
 
 
@@ -75,7 +75,7 @@ conda env create -f environment.yml
 
 | dir         |            | description                         |
 | ----------- | ---------- | ----------------------------------- |
-| pallycon    |            |                                     |
+| doverunner    |            |                                     |
 |             | /config    | configuration module for policy     |
 |             | /exception | exception package                   |
 |             | /sample    | make token sample @`client_test.py` |
@@ -85,17 +85,17 @@ conda env create -f environment.yml
 
 
 ## Guide
-Go to [PallyCon Docs for Policy Json Specification](https://pallycon.com/docs/en/multidrm/license/license-token/#license-policy-json)
+Go to [Doverunner Docs for Policy Json Specification](https://doverunner.com/docs/en/multidrm/license/license-token/#license-policy-json)
 and figure out which specification to use.
 
 ### How to get token
 
-0. make **quick** token : go to `pallycon/sample/make_token.py` and run this module
+0. make **quick** token : go to `doverunner/sample/make_token.py` and run this module
 
 1. Before get token, you need to set up `policy`.
 
    ```python
-   from pallycon_drm_token_policy import PallyConDrmTokenPolicy as Policy
+   from doverunner_drm_token_policy import DoverunnerDrmTokenPolicy as Policy
    
    policy = Policy()
    
@@ -115,9 +115,9 @@ and figure out which specification to use.
    If you want to set up all policies, 
 
    ```python
-   from pallycon_drm_token_policy import PlaybackPolicy
-   from pallycon_drm_token_policy import SecurityPolicy
-   from pallycon_drm_token_policy import ExternalKey
+   from doverunner_drm_token_policy import PlaybackPolicy
+   from doverunner_drm_token_policy import SecurityPolicy
+   from doverunner_drm_token_policy import ExternalKey
    
    playback = PlaybackPolicy()
    security = SecurityPolicy()
@@ -188,11 +188,11 @@ and figure out which specification to use.
                     '<cek>'))
    ```
 
-3. Import `PallyConDrmTokenClient` from `pallycon_drm_token_client.py`
+3. Import `DoverunnerDrmTokenClient` from `doverunner_drm_token_client.py`
 
    ```python
-   from pallycon_drm_token_client import PallyConDrmTokenClient as Token 
-   from pallycon.config import response_format
+   from doverunner_drm_token_client import DoverunnerDrmTokenClient as Token 
+   from doverunner.config import response_format
    
    def set_drm_token():
        set_policy()
@@ -214,22 +214,22 @@ and figure out which specification to use.
    ```python
    try:
        set_drm_token()
-   except PallyConTokenException as p:
+   except DoverunnerTokenException as p:
        print(p)
    ```
 
-   `PallyConTokenException` will arise if there are minor mistakes when created. The `result` will return JSON with an `error_code` and `error_message`. Follow the comment and fix the bugs. 
+   `DoverunnerTokenException` will arise if there are minor mistakes when created. The `result` will return JSON with an `error_code` and `error_message`. Follow the comment and fix the bugs. 
 
    For example, 
    
    ```json
    {
        "error_code": "1048",
-       "error_message": "Token err : The response_format should be in type of RESPONSE_FORMAT in [pallycon.config.response_format] module"
+       "error_message": "Token err : The response_format should be in type of RESPONSE_FORMAT in [doverunner.config.response_format] module"
    }
    ```
    
-   If you want to see All the error codes and error messages you would get, see the `error_list` in `pallycon\excepion\pallycon_tokne_exception.py` module. 
+   If you want to see All the error codes and error messages you would get, see the `error_list` in `doverunner\excepion\doverunner_tokne_exception.py` module. 
    
 
 
@@ -239,7 +239,7 @@ and figure out which specification to use.
 
 
 
-We hope this instruction would be helpful to generate DRM License Token to request PallyCon Multi-DRM Cloud Server and get the License issued from.
+We hope this instruction would be helpful to generate DRM License Token to request Doverunner Multi-DRM Cloud Server and get the License issued from.
 
 
 
@@ -267,7 +267,7 @@ We hope this instruction would be helpful to generate DRM License Token to reque
 | 1010       | PlaybackPolicy : The license_duration should be Integer    |
 | 1011       | PlaybackPolicy : The expireDate time format should be \'YYYY-MM-DD\'T\'HH:mm:ss\'Z\' |
 | 1012       | PlaybackPolicy : The allowed_track_types value should be in allowed_track_types module |
-| 1013       | SecurityPolicy: The track_type should be in type of  TRACK_TYPE<br />in `pallycon.config.track_type` module |
+| 1013       | SecurityPolicy: The track_type should be in type of  TRACK_TYPE<br />in `doverunner.config.track_type` module |
 | 1014       | SecurityPolicy: The widevine should be an instance of SecurityPolicyWidevine |
 | 1015       | SecurityPolicy: The playready should be an instance of SecurityPolicyPlayready |
 | 1016       | SecurityPolicy: The fairplay should be an instance of SecurityPolicyFairplay |
@@ -276,32 +276,32 @@ We hope this instruction would be helpful to generate DRM License Token to reque
 | 1019       | ExternalKey: The MpegCenc should be an instance of MpegCenc or List[MpegCenc] |
 | 1020       | ExternalKey: The HlsAes should be an instance of HlsAes or List[HlsAes] |
 | 1021       | ExternalKey: The Ncg should be an instance of Ncg          |
-| 1022       | SecurityPolicyWidevine: The security_level should be in type of  SECURITY_LEVEL<br />in `pallycon.config.widevine.security_level` module |
-| 1023       | SecurityPolicyWidevine: The required_hdcp_version should be in type of  REQUIRED_HDCP_VERSION<br />in `pallycon.config.widevine.required_hdcp_version` module |
-| 1024       | SecurityPolicyWidevine: The required_cgms_flagsshould be in type of  REQUIRED_CGMS_FLAGS<br />in `pallycon.config.widevine.required_cgms_flags` module |
+| 1022       | SecurityPolicyWidevine: The security_level should be in type of  SECURITY_LEVEL<br />in `doverunner.config.widevine.security_level` module |
+| 1023       | SecurityPolicyWidevine: The required_hdcp_version should be in type of  REQUIRED_HDCP_VERSION<br />in `doverunner.config.widevine.required_hdcp_version` module |
+| 1024       | SecurityPolicyWidevine: The required_cgms_flagsshould be in type of  REQUIRED_CGMS_FLAGS<br />in `doverunner.config.widevine.required_cgms_flags` module |
 | 1025       | SecurityPolicyWidevine: The disable_analog_output should be Boolean |
-| 1026       | SecurityPolicyWidevine: The hdcp_srm_rule should be in type of  HDCP_SRM_RULE<br />in `pallycon.config.widevine.hdcp_srm_rule` module |
-| 1027       | SecurityPolicyPlayready: The security_level should be in type of  SECURITY_LEVEL<br />in `pallycon.config.playready.security_level` module |
-| 1028       | SecurityPolicyPlayready: The digital_video_protection_level should be in type of  DIGITAL_VIDEO_PROTECTION_LEVEL<br />in `pallycon.config.playready.digital_video_protection` module |
-| 1029       | SecurityPolicyPlayready: The analog_video_protection_level should be in type of  ANALOG_VIDEO_PROTECTION_LEVEL<br />in `pallycon.config.playready.analog_video_protection` module |
-| 1030       | SecurityPolicyPlayready: The digital_audio_protection_level should be in type of  DIGITAL_AUDIO_PROTECTION<br />in `pallycon.config.playready.digital_audio_protection` module |
+| 1026       | SecurityPolicyWidevine: The hdcp_srm_rule should be in type of  HDCP_SRM_RULE<br />in `doverunner.config.widevine.hdcp_srm_rule` module |
+| 1027       | SecurityPolicyPlayready: The security_level should be in type of  SECURITY_LEVEL<br />in `doverunner.config.playready.security_level` module |
+| 1028       | SecurityPolicyPlayready: The digital_video_protection_level should be in type of  DIGITAL_VIDEO_PROTECTION_LEVEL<br />in `doverunner.config.playready.digital_video_protection` module |
+| 1029       | SecurityPolicyPlayready: The analog_video_protection_level should be in type of  ANALOG_VIDEO_PROTECTION_LEVEL<br />in `doverunner.config.playready.analog_video_protection` module |
+| 1030       | SecurityPolicyPlayready: The digital_audio_protection_level should be in type of  DIGITAL_AUDIO_PROTECTION<br />in `doverunner.config.playready.digital_audio_protection` module |
 | 1032       | SecurityPolicyPlayready: The require_hdcp_type_1 should be Boolean |
-| 1033       | SecurityPolicyFairplay: The hdcp_enforcement should be in type of FAIRPLAY_HDCP_ENFORCEMENT<br />in `pallycon.config.fairplay_hdcp_enforcement` module |
+| 1033       | SecurityPolicyFairplay: The hdcp_enforcement should be in type of FAIRPLAY_HDCP_ENFORCEMENT<br />in `doverunner.config.fairplay_hdcp_enforcement` module |
 | 1034       | SecurityPolicyFairplay: The allow_airplay should be Boolean |
 | 1035       | SecurityPolicyFairplay: The allow_av_adapter should be Boolean |
 | 1036       | SecurityPolicyNcg: The allow_mobile_abnormal_device should be Boolean |
 | 1037       | SecurityPolicyNcg: The allow_external_display should be Boolean |
-| 1038       | SecurityPolicyNcg: The control_hdcp should be in type of CONTROL_HDCP<br />in `pallycon.config.ncg_control_hdcp` module |
-| 1039       | ExternalKeyMpegCenc: The track_type should be in type of  TRACK_TYPE<br />in `pallycon.config.track_type` module |
+| 1038       | SecurityPolicyNcg: The control_hdcp should be in type of CONTROL_HDCP<br />in `doverunner.config.ncg_control_hdcp` module |
+| 1039       | ExternalKeyMpegCenc: The track_type should be in type of  TRACK_TYPE<br />in `doverunner.config.track_type` module |
 | 1040       | ExternalKeyMpegCenc : The key_id should be 16byte hex String |
 | 1041       | ExternalKeyMpegCenc : The key should be 16byte hex String  |
 | 1042       | ExternalKeyMpegCenc : The iv should be 16byte hex String   |
-| 1043       | ExternalKeyHlsAes: The track_type should be in type of  TRACK_TYPE<br />in `pallycon.config.track_type` module |
+| 1043       | ExternalKeyHlsAes: The track_type should be in type of  TRACK_TYPE<br />in `doverunner.config.track_type` module |
 | 1044       | ExternalKeyHlsAes : The key should be 16byte hex String    |
 | 1045       | ExternalKeyHlsAes : The iv should be 16byte hex String     |
-| 1046       | ExternalKeyNcg : The track_type should be in type of  TRACK_TYPE<br />in `pallycon.config.track_type` module |
+| 1046       | ExternalKeyNcg : The track_type should be in type of  TRACK_TYPE<br />in `doverunner.config.track_type` module |
 | 1047       | ExternalKeyNcg : The Cek should be 32byte hex String       |
-| 1048       | Token err : The response_format should be in type of RESPONSE_FORMAT<br />in `pallycon.config.response_format` module |
+| 1048       | Token err : The response_format should be in type of RESPONSE_FORMAT<br />in `doverunner.config.response_format` module |
 | 1049       | PlaybackPolicy : The rental_duration should be Integer |
 | 1050       | PlaybackPolicy : The playback_duration should be Integer |
 | 1051       | SecurityPolicyWidevine: The override_device_revocation should be Boolean |
