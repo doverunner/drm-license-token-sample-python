@@ -1,6 +1,6 @@
 from typing import List, Union
 
-from doverunner.exception.doverunner_token_exception import DoverunnerTokenException
+from doverunner.exception.doverunner_token_exception import DoveRunnerTokenException
 from doverunner.token.v2.external_key_hls_aes import ExternalKeyHlsAes
 from doverunner.token.v2.external_key_mpeg_cenc import ExternalKeyMpegCenc
 from doverunner.token.v2.external_key_ncg import ExternalKeyNcg
@@ -27,7 +27,7 @@ class ExternalKey:
         elif isinstance(mpeg_cenc, ExternalKeyMpegCenc):
             self.__external_mpeg_list.append(mpeg_cenc.dict())
         else:
-            raise DoverunnerTokenException('1019')
+            raise DoveRunnerTokenException('1019')
         return self
 
     """
@@ -45,14 +45,14 @@ class ExternalKey:
         elif isinstance(hls_aes, ExternalKeyHlsAes):
             self.__external_hls_list.append(hls_aes.dict())
         else:
-            raise DoverunnerTokenException('1020')
+            raise DoveRunnerTokenException('1020')
         return self
 
     def ncg(self, ncg: ExternalKeyNcg):
         if isinstance(ncg, ExternalKeyNcg):
             self.__external_ncg = ncg.dict()
         else:
-            raise DoverunnerTokenException('1021')
+            raise DoveRunnerTokenException('1021')
         return self
 
     def get_mpeg_cenc(self) -> List[dict]:
@@ -71,7 +71,7 @@ class ExternalKey:
         if (mpeg_list_len + hls_list_len) is 0 \
                 and self.__external_ncg is None:
             result = False
-            # raise DoverunnerTokenException('1018')
+            # raise DoveRunnerTokenException('1018')
         return result
 
     def dict(self) -> dict:

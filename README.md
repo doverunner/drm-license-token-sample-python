@@ -1,8 +1,8 @@
-# Drm-Token-Sample-PYTHON (v3.0)
+# DoveRunner Token Sample - PYTHON (v3.0)
 
 ## Overview
 
-This repository provides server-side sample code that can generate license token for Doverunner multi-DRM service. DRM license tokens are used to authenticate license requests in multi-DRM integration workflows.
+This repository provides server-side sample code that can generate license token for DoveRunner multi-DRM service. DRM license tokens are used to authenticate license requests in multi-DRM integration workflows.
 
 Here's how a license token works in the DRM license issuance process.
 - When a multi-DRM client tries to play DRM content, the client requests a token to the content service platform to acquire DRM license. The service platform verifies that the user requesting the token has permission to the content, and then generates a token data according to the specification.
@@ -95,7 +95,7 @@ conda env create -f environment.yml
 
 
 ## Guide
-Go to [Doverunner Docs for Policy Json Specification](https://doverunner.com/docs/en/multidrm/license/license-token/#license-policy-json)
+Go to [DoveRunner Docs for Policy Json Specification](https://doverunner.com/docs/content-security/multi-drm/license/license-token/#license-policy-json-data-v20)
 and figure out which specification to use.
 
 ### How to get token
@@ -105,7 +105,7 @@ and figure out which specification to use.
 1. Before get token, you need to set up `policy`.
 
    ```python
-   from doverunner_drm_token_policy import DoverunnerDrmTokenPolicy as Policy
+   from doverunner_drm_token_policy import DoveRunnerDrmTokenPolicy as Policy
    
    policy = Policy()
    
@@ -198,10 +198,10 @@ and figure out which specification to use.
                     '<cek>'))
    ```
 
-3. Import `DoverunnerDrmTokenClient` from `doverunner_drm_token_client.py`
+3. Import `DoveRunnerDrmTokenClient` from `doverunner_drm_token_client.py`
 
    ```python
-   from doverunner_drm_token_client import DoverunnerDrmTokenClient as Token 
+   from doverunner_drm_token_client import DoveRunnerDrmTokenClient as Token 
    from doverunner.config import response_format
    
    def set_drm_token():
@@ -224,11 +224,11 @@ and figure out which specification to use.
    ```python
    try:
        set_drm_token()
-   except DoverunnerTokenException as p:
+   except DoveRunnerTokenException as p:
        print(p)
    ```
 
-   `DoverunnerTokenException` will arise if there are minor mistakes when created. The `result` will return JSON with an `error_code` and `error_message`. Follow the comment and fix the bugs. 
+   `DoveRunnerTokenException` will arise if there are minor mistakes when created. The `result` will return JSON with an `error_code` and `error_message`. Follow the comment and fix the bugs. 
 
    For example, 
    
@@ -249,7 +249,7 @@ and figure out which specification to use.
 
 
 
-We hope this instruction would be helpful to generate DRM License Token to request Doverunner Multi-DRM Cloud Server and get the License issued from.
+We hope this instruction would be helpful to generate DRM License Token to request DoveRunner Multi-DRM Cloud Server and get the License issued from.
 
 
 
@@ -325,7 +325,7 @@ We hope this instruction would be helpful to generate DRM License Token to reque
 
 ## Support
 
-If you have any questions or issues with the token sample, please create a ticket at [Doverunner Helpdesk](https://support.doverunner.com) website.
+If you have any questions or issues with the token sample, please create a ticket at [DoveRunner Helpdesk](https://support.doverunner.com) website.
 
 
 

@@ -1,4 +1,4 @@
-from doverunner.exception.doverunner_token_exception import DoverunnerTokenException
+from doverunner.exception.doverunner_token_exception import DoveRunnerTokenException
 from doverunner.config.common import track_type as hls_aes_track_type
 from doverunner.config.common.track_type import check
 
@@ -9,22 +9,22 @@ class ExternalKeyHlsAes:
         if isinstance(track_type, str) and check(track_type):
             self.__track_type = track_type
         else:
-            raise DoverunnerTokenException('1043')
+            raise DoveRunnerTokenException('1043')
 
         if isinstance(key_id, str) and _check_hex16(key_id):
             self.__key_id = key_id
         else:
-            raise DoverunnerTokenException('1052')
+            raise DoveRunnerTokenException('1052')
 
         if isinstance(key, str) and _check_hex16(key):
             self.__key = key
         else:
-            raise DoverunnerTokenException('1044')
+            raise DoveRunnerTokenException('1044')
 
         if isinstance(iv, str) and _check_hex16(iv):
             self.__iv = iv
         else:
-            raise DoverunnerTokenException('1045')
+            raise DoveRunnerTokenException('1045')
 
     @property
     def track_type(self) -> hls_aes_track_type:

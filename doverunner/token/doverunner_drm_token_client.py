@@ -5,7 +5,7 @@ import hashlib
 from Crypto.Cipher import AES
 import pytz
 import datetime
-from doverunner.exception.doverunner_token_exception import DoverunnerTokenException
+from doverunner.exception.doverunner_token_exception import DoveRunnerTokenException
 
 
 def _pad(words):
@@ -16,7 +16,7 @@ def _pad(words):
     return (words + (BS - len(words) % BS) * chr(BS - len(words) % BS)).encode("utf-8")
 
 
-class DoverunnerDrmTokenClient:
+class DoveRunnerDrmTokenClient:
     def __init__(self):
         self.__drm_type = "PlayReady"
         self.__AES_IV = "0123456789abcdef"
@@ -77,14 +77,14 @@ class DoverunnerDrmTokenClient:
         if check(response_format):
             self.__response_format = response_format
         else:
-            raise DoverunnerTokenException('1048')
+            raise DoveRunnerTokenException('1048')
         return self
 
     def key_rotation(self, key_rotation):
         if isinstance(key_rotation, bool):
             self.__key_rotation = key_rotation
         else:
-            raise DoverunnerTokenException('1055')
+            raise DoveRunnerTokenException('1055')
         return self
 
     def __timestamp(self):
@@ -123,7 +123,7 @@ class DoverunnerDrmTokenClient:
 
             return base64.b64encode(payload_str.encode("utf-8")).decode("utf-8")
 
-        except DoverunnerTokenException:
+        except DoveRunnerTokenException:
             raise
 
     """
@@ -153,22 +153,22 @@ class DoverunnerDrmTokenClient:
 
     def __validation(self):
         if self.__user_id is None:
-            raise DoverunnerTokenException('1000')
+            raise DoveRunnerTokenException('1000')
 
         if self.__cid is None:
-            raise DoverunnerTokenException('1001')
+            raise DoveRunnerTokenException('1001')
 
         if self.__site_id is None:
-            raise DoverunnerTokenException('1002')
+            raise DoveRunnerTokenException('1002')
 
         if self.__access_key is None:
-            raise DoverunnerTokenException('1003')
+            raise DoveRunnerTokenException('1003')
 
         if self.__site_key is None:
-            raise DoverunnerTokenException('1004')
+            raise DoveRunnerTokenException('1004')
 
         if self.__policy is None:
-            raise DoverunnerTokenException('1005')
+            raise DoveRunnerTokenException('1005')
 
     def get_drm_type(self):
         return self.__drm_type

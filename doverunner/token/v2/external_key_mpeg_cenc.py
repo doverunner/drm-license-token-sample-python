@@ -1,4 +1,4 @@
-from doverunner.exception.doverunner_token_exception import DoverunnerTokenException
+from doverunner.exception.doverunner_token_exception import DoveRunnerTokenException
 from doverunner.config.common import track_type as mpeg_track_type
 from doverunner.config.common.track_type import check
 
@@ -9,24 +9,24 @@ class ExternalKeyMpegCenc:
         if isinstance(track_type, str) and check(track_type):
             self.__track_type = track_type
         else:
-            raise DoverunnerTokenException('1039')
+            raise DoveRunnerTokenException('1039')
 
         if isinstance(key_id, str) and _check_hex16(key_id):
             self.__key_id = key_id
         else:
-            raise DoverunnerTokenException('1040')
+            raise DoveRunnerTokenException('1040')
 
         if isinstance(key, str) and _check_hex16(key):
             self.__key = key
         else:
-            raise DoverunnerTokenException('1041')
+            raise DoveRunnerTokenException('1041')
 
         if isinstance(iv, str) and _check_hex16(iv):
             self.__iv = iv
         elif iv is None:
             self.__iv = None
         else:
-            raise DoverunnerTokenException('1042')
+            raise DoveRunnerTokenException('1042')
 
     @property
     def track_type(self) -> mpeg_track_type:
