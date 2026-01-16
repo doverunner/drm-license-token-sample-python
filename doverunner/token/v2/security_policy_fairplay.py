@@ -1,4 +1,4 @@
-from doverunner.exception.doverunner_token_exception import DoveRunnerTokenException
+from doverunner.exception.doverunner_token_exception import DoverunnerTokenException
 
 class SecurityPolicyFairplay:
     def __init__(self):
@@ -13,21 +13,21 @@ class SecurityPolicyFairplay:
         if check(hdcp_enforcement):
             self.__fairplay_hdcp_enforcement = hdcp_enforcement
         else:
-            raise DoveRunnerTokenException('1033')
+            raise DoverunnerTokenException('1033')
         return self
 
     def allow_airplay(self, allow_airplay: bool):
         if isinstance(allow_airplay, bool):
             self.__fairplay_allow_airplay = allow_airplay
         else:
-            raise DoveRunnerTokenException('1034')
+            raise DoverunnerTokenException('1034')
         return self
 
     def allow_av_adapter(self, allow_av_adapter: bool):
         if isinstance(allow_av_adapter, bool):
             self.__fairplay_allow_av_adapter = allow_av_adapter
         else:
-            raise DoveRunnerTokenException('1035')
+            raise DoverunnerTokenException('1035')
         return self
 
     """ getter """

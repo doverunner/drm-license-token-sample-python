@@ -1,4 +1,4 @@
-from doverunner.exception.doverunner_token_exception import DoveRunnerTokenException
+from doverunner.exception.doverunner_token_exception import DoverunnerTokenException
 from doverunner.config.common import track_type as ncg_track_type
 from doverunner.config.common.track_type import check
 
@@ -9,12 +9,12 @@ class ExternalKeyNcg:
         if isinstance(track_type, str) and check(track_type):
             self.__track_type = track_type
         else:
-            raise DoveRunnerTokenException('1046')
+            raise DoverunnerTokenException('1046')
 
         if isinstance(cek, str) and _check_hex32(cek):
             self.__cek = cek
         else:
-            raise DoveRunnerTokenException('1047')
+            raise DoverunnerTokenException('1047')
 
     @property
     def track_type(self):

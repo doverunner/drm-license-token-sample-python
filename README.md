@@ -20,7 +20,7 @@ Here's how a license token works in the DRM license issuance process.
 
 ### Language
 
-This works on `PYTHON` version : 
+This works on `PYTHON` version :
 
 - 3.13.* and greater
 
@@ -35,9 +35,11 @@ This works on `PYTHON` version :
 
 ### Libraries
 
-For Anaconda users, create a virtual environment using `environment.yml` file and command.  
+**Option 1: Using Conda (Recommended for cross-platform compatibility)**
 
-`environment.yml` file :     
+For Anaconda users, create a virtual environment using `environment.yml` file and command.
+
+`environment.yml` file :
 ```text
 # Cross-Platform Conda Environment for ARM64 & x86_64
 # ARM64(Apple Silicon)과 x86_64(Linux/macOS Intel) 양쪽에서 호환되는 환경
@@ -74,9 +76,17 @@ dependencies:
 prefix: {{ conda_prefix }}
 ``` 
 
-command : 
+command :
 ```shell script
 conda env create -f environment.yml
+```
+
+**Option 2: Using pip**
+
+If you prefer using pip instead of conda:
+
+```bash
+pip install pycryptodome pytz
 ```
 
 <br><br>
@@ -100,7 +110,31 @@ and figure out which specification to use.
 
 ### How to get token
 
-0. make **quick** token : go to `doverunner/sample/make_token.py` and run this module
+0. **Configuration Setup (Required)**
+
+   Before running `make_token.py`, create a configuration file with your DoveRunner credentials:
+
+   ```bash
+   # Copy the example configuration file to project root
+   cp config.ini.example config.ini
+
+   # Edit config.ini and fill in your actual values
+   # Replace placeholders with your DoveRunner credentials
+   ```
+
+   The `config.ini` file (in project root) should contain:
+   ```ini
+   [drm]
+   site_id = YOUR_SITE_ID
+   site_key = YOUR_SITE_KEY
+   access_key = YOUR_ACCESS_KEY
+   user_id = tester-user
+   content_id = YOUR_CONTENT_ID
+   ```
+
+   **Note:** The `config.ini` file is gitignored to prevent accidental commits of sensitive credentials.
+
+   After configuration, run: `python -m doverunner.sample.make_token`
 
 1. Before get token, you need to set up `policy`.
 
@@ -122,7 +156,7 @@ and figure out which specification to use.
 
 2. As you can see above, you need to decide whether to set `playback`, `security`, or `external`.
 
-   If you want to set up all policies, 
+   If you want to set up all policies,
 
    ```python
    from doverunner_drm_token_policy import PlaybackPolicy
@@ -198,24 +232,43 @@ and figure out which specification to use.
                     '<cek>'))
    ```
 
-3. Import `DoveRunnerDrmTokenClient` from `doverunner_drm_token_client.py`
+3. Import `DoveRunnerDrmTokenClient` and load configuration
 
    ```python
-   from doverunner_drm_token_client import DoveRunnerDrmTokenClient as Token 
+   from doverunner_drm_token_client import DoveRunnerDrmTokenClient as Token
    from doverunner.config import response_format
-   
+   import configparser
+   import os
+
+   def load_config():
+       """Load configuration from config.ini file in project root."""
+       project_root = os.path.dirname(os.path.dirname(os.path.dirname(__file__)))
+       config_path = os.path.join(project_root, 'config.ini')
+
+       config = configparser.ConfigParser()
+       config.read(config_path)
+
+       return {
+           'site_id': config.get('drm', 'site_id'),
+           'site_key': config.get('drm', 'site_key'),
+           'access_key': config.get('drm', 'access_key'),
+           'user_id': config.get('drm', 'user_id'),
+           'content_id': config.get('drm', 'content_id')
+       }
+
    def set_drm_token():
+       config = load_config()  # Load from config.ini
        set_policy()
        token = Token()\
            .widevine()\
-           .site_id("<Site ID>")\
-           .site_key("<Site Key>")\
-           .access_key("<Access Key>")\
-           .user_id("tester-user")\
-           .cid("<Content ID>")\
+           .site_id(config['site_id'])\
+           .site_key(config['site_key'])\
+           .access_key(config['access_key'])\
+           .user_id(config['user_id'])\
+           .cid(config['content_id'])\
            .policy(policy)\
            .response_format(response_format.ORIGINAL)
-       
+
        token.execute()
    ```
 
@@ -228,19 +281,19 @@ and figure out which specification to use.
        print(p)
    ```
 
-   `DoveRunnerTokenException` will arise if there are minor mistakes when created. The `result` will return JSON with an `error_code` and `error_message`. Follow the comment and fix the bugs. 
+   `DoveRunnerTokenException` will arise if there are minor mistakes when created. The `result` will return JSON with an `error_code` and `error_message`. Follow the comment and fix the bugs.
 
-   For example, 
-   
+   For example,
+
    ```json
    {
        "error_code": "1048",
        "error_message": "Token err : The response_format should be in type of RESPONSE_FORMAT in [doverunner.config.response_format] module"
    }
    ```
-   
-   If you want to see All the error codes and error messages you would get, see the `error_list` in `doverunner\excepion\doverunner_tokne_exception.py` module. 
-   
+
+   If you want to see All the error codes and error messages you would get, see the `error_list` in `doverunner\excepion\doverunner_tokne_exception.py` module.
+
 
 
 

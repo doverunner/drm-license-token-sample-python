@@ -94,7 +94,7 @@ error_list = [
 ]
 error_dict = dict(error_list)
 
-class DoveRunnerTokenException(Exception):
+class DoverunnerTokenException(Exception):
 
     def __init__(self, code='0000'):
         self.__code = code

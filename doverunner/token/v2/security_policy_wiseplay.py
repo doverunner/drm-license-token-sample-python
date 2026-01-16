@@ -1,4 +1,4 @@
-from doverunner.exception.doverunner_token_exception import DoveRunnerTokenException
+from doverunner.exception.doverunner_token_exception import DoverunnerTokenException
 
 class SecurityPolicyWiseplay:
     def __init__(self):
@@ -10,7 +10,7 @@ class SecurityPolicyWiseplay:
         if isinstance(security_level, int):
             self.__wiseplay_security_level = security_level
         else:
-            raise DoveRunnerTokenException('1060')
+            raise DoverunnerTokenException('1060')
         return self
 
     def output_control(self, output_control: int):
@@ -18,7 +18,7 @@ class SecurityPolicyWiseplay:
         if isinstance(output_control, int):
             self.__wiseplay_output_control = output_control
         else:
-            raise DoveRunnerTokenException('1061')
+            raise DoverunnerTokenException('1061')
         return self
 
     def get_security_level(self) -> int:

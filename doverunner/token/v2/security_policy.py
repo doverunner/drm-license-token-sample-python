@@ -1,4 +1,4 @@
-from doverunner.exception.doverunner_token_exception import DoveRunnerTokenException
+from doverunner.exception.doverunner_token_exception import DoverunnerTokenException
 from doverunner.token.v2.security_policy_widevine import SecurityPolicyWidevine
 from doverunner.token.v2.security_policy_playready import SecurityPolicyPlayready
 from doverunner.token.v2.security_policy_fairplay import SecurityPolicyFairplay
@@ -21,42 +21,42 @@ class SecurityPolicy:
         if isinstance(track_type, str) and check(track_type):
             self.__security_track_type = track_type
         else:
-            raise DoveRunnerTokenException('1013')
+            raise DoverunnerTokenException('1013')
         return self
 
     def widevine(self, widevine: SecurityPolicyWidevine):
         if isinstance(widevine, SecurityPolicyWidevine):
             self.__security_widevine = widevine.dict()
         else:
-            raise DoveRunnerTokenException('1014')
+            raise DoverunnerTokenException('1014')
         return self
 
     def playready(self, playready: SecurityPolicyPlayready):
         if isinstance(playready, SecurityPolicyPlayready):
             self.__security_playready = playready.dict()
         else:
-            raise DoveRunnerTokenException('1015')
+            raise DoverunnerTokenException('1015')
         return self
 
     def fairplay(self, fairplay: SecurityPolicyFairplay):
         if isinstance(fairplay, SecurityPolicyFairplay):
             self.__security_fairplay = fairplay.dict()
         else:
-            raise DoveRunnerTokenException('1016')
+            raise DoverunnerTokenException('1016')
         return self
 
     def ncg(self, ncg: SecurityPolicyNcg):
         if isinstance(ncg, SecurityPolicyNcg):
             self.__security_ncg = ncg.dict()
         else:
-            raise DoveRunnerTokenException('1062')
+            raise DoverunnerTokenException('1062')
         return self
 
     def wiseplay(self, wiseplay: SecurityPolicyWiseplay):
         if isinstance(wiseplay, SecurityPolicyWiseplay):
             self.__security_wiseplay = wiseplay.dict()
         else:
-            raise DoveRunnerTokenException('1057')
+            raise DoverunnerTokenException('1057')
         return self
 
     """ getter """
