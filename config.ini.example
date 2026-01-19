@@ -1,0 +1,15 @@
+[drm]
+# Site ID for DRM token generation
+site_id = <Site ID>
+
+# Site Key for authentication
+site_key = <Site Key>
+
+# Access Key for API access
+access_key = <Access Key>
+
+# User ID for testing
+user_id = tester-user
+
+# Content ID for DRM token
+content_id = <Content ID>
